@@ -1,0 +1,100 @@
+@import "./css/active-tags.css";
+@import "./css/add.css";
+@import "./css/delete-button.css";
+@import "./css/filter-search.css";
+@import "./css/list.css";
+@import "./css/search.css";
+@import "./css/tags.css";
+
+code {
+  font-family: Menlo, Monaco, monospace;
+  font-size: 0.875em;
+}
+
+.AddNote,
+.Content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.AddNote {
+  background: var(--color-Secondary);
+  color: var(--color-White);
+  padding: 3rem;
+  width: 25%;
+}
+
+.Content {
+  flex: 1;
+}
+
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+thead {
+  background: var(--color-White);
+  position: sticky;
+  top: 0;
+}
+
+th,
+td {
+  color: inherit;
+  padding: 1rem;
+}
+
+th {
+  padding-block: 2rem;
+}
+
+th:first-child,
+td:first-child {
+  padding-left: 3rem;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 3rem;
+}
+
+th {
+  font-weight: bold;
+}
+
+th:not(:last-child) {
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  background: var(--color-Light);
+}
+
+td {
+  vertical-align: top;
+}
+
+td:first-child {
+  font-weight: 600;
+}
+
+.RichText * + * {
+  margin-top: 1.5em;
+}
+
+.RichText h1,
+.RichText h2,
+.RichText h3,
+.RichText h4,
+.RichText h5,
+.RichText h6,
+.RichText strong,
+.RichText b {
+  font-weight: bold;
+}
+
+.RichText em,
+.RichText i {
+  font-style: italic;
+}

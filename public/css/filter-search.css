@@ -1,0 +1,10 @@
+/** @define FilterSearch; */
+
+.FilterSearch {
+  background: var(--color-Tertiary);
+  color: var(--color-White);
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1fr 1fr;
+  padding: 3rem;
+}

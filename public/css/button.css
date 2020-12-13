@@ -1,0 +1,71 @@
+/** @define Button; */
+
+.Button {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  box-shadow: 0.1em 0.1em 0.25em rgba(0, 0, 0, 0.25);
+  font-weight: 600;
+}
+
+.Button:active {
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.Button--small {
+  padding: 0.15em 0.5em;
+}
+
+.Button--large {
+  padding: 0.75em 2em;
+}
+
+.Button--primary,
+.Button--secondary {
+  color: var(--color-White);
+}
+
+.Button--primary {
+  background-color: var(--color-Primary);
+}
+
+.Button--secondary {
+  background-color: var(--color-Secondary);
+}
+
+.Button--tertiary {
+  background-color: var(--color-White);
+  color: var(--color-Secondary);
+}
+
+.Button--delete {
+  align-items: center;
+  display: flex;
+  gap: 0.5em;
+}
+
+.Button--delete::after {
+  background-color: currentColor;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 1em;
+  width: 1em;
+}
+
+.Button--secondary.Button--delete::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 508 508'%3E%3Cpath d='M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z'/%3E%3Cpath d='M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z'/%3E%3C/svg%3E");
+}
+
+.Button--tertiary.Button--delete::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 508 508'%3E%3Cpath fill='%23fff' d='M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z'/%3E%3Cpath fill='%23fff' d='M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z'/%3E%3C/svg%3E");
+}

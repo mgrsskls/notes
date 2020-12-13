@@ -1,0 +1,31 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "@factorial/stack-css": "^0.2.5",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dot-prop": "^6.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "markdown-it": "^12.0.3",
+    "node-env-file": "^0.1.8",
+    "pg": "^8.5.1",
+    "twig": "^1.15.4"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "@factorial/stack-core": "^0.2.5",
+    "@factorial/stack-javascript": "^0.2.3"
+  }
+}

@@ -1,0 +1,17 @@
+.Login {
+  align-items: center;
+  background: var(--color-Secondary);
+  color: var(--color-White);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+}
+
+.Login-form {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}

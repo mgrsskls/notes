@@ -1,0 +1,140 @@
+{% extends "html.twig" %}
+
+{% block head %}
+  <link rel="stylesheet" href="index.css">
+{% endblock %}
+
+{% block content %}
+  <header class="AddNote">
+    <h1>Notes</h1>
+    <form class="Add" action="/" method="post">
+      <div class="Add-input">
+        <label class="Add-label" for="title">{{ 'note.attributes.title'|t }}</label>
+        <input type="text" name="title" id="title">
+      </div>
+      <div class="Add-input">
+        <label class="Add-label" for="url">{{ 'note.attributes.url'|t }}</label>
+        <input type="text" name="url" id="url">
+      </div>
+      <div class="Add-input">
+        <label class="Add-label" for="text">{{ 'note.attributes.text'|t }}</label>
+        <textarea name="text" id="text"></textarea>
+      </div>
+      <div class="Add-input">
+        <label class="Add-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
+        <input type="text" list="tags" id="tag">
+        <datalist id="tags">
+          {% for tag in tags %}
+            <option value="{{ tag }}">
+          {% endfor %}
+        </datalist>
+        <ul class="Add-tags Tags">
+          <template id="tag-template">
+            <li class="Add-tag">
+              <input type="hidden" name="tags[]">
+              <button class="Button Button--tertiary Button--small Button--delete Tag" type="button"></button>
+            </li>
+          </template>
+        </ul>
+      </div>
+      <button class="Button Button--primary Button--large Add-input" type="submit">{{ 'note.create.submit'|t }}</button>
+    </form>
+  </header>
+  <main class="Content">
+    <div class="FilterSearch">
+      <form class="Search">
+        <label for="query">{{ 'search.label'|t }}</label>
+        <input class="Search-input" type="search" name="query" id="query">
+        <button class="Search-button Button Button--primary Button--large" type="submit">{{ 'search.submit'|t }}</button>
+      </form>
+      {% if activeTags|length > 0 %}
+        <div class="ActiveTags FilterSearch-activeTags">
+          <p class="ActiveTags-label">{{ 'filter.label'|t }}</p>
+          <ul class="ActiveTags-list Tags">
+            {% for activeTag in activeTags %}
+              <li>
+                <form>
+                  {% for tag in activeTags %}
+                    {% if activeTag != tag %}
+                      <input type="hidden" name="tags[]" value="{{ tag }}">
+                    {% endif %}
+                  {% endfor %}
+                  <button type="submit" class="Button Button--secondary Button--small Button--delete Tag">{{ activeTag }}</button>
+                </form>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+    {% if notes|length > 0 %}
+    <table class="Table">
+      <thead>
+        <tr>
+          <th>{{ 'note.attributes.title'|t }}</th>
+          <th>{{ 'note.attributes.url'|t }}</th>
+          <th>{{ 'note.attributes.text'|t }}</th>
+          <th>{{ 'note.attributes.tags'|t }}</th>
+          <th>{{ 'note.delete.submit'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for note in notes %}
+        <tr class="Note">
+          <td class="Note-value">
+            {{ note.title|default("n/a") }}
+          </td>
+          <td class="Note-value">
+            {% if note.url %}
+              <a href="{{ note.url }}" target="_blank" rel="noopener noreferrer">{{ note.url }}</a>
+            {% else %}
+              n/a
+            {% endif %}
+          </td>
+          <td class="Note-value">
+            <div class="RichText">
+              {{ note.text|default("n/a") }}
+            </div>
+          </td>
+          <td>
+            {% if note.tags|length > 0 %}
+              <ul class="Tags">
+                {% for tag in note.tags %}
+                  <li>
+                    <form>
+                      {% if tag in activeTags %}
+                        {% for activeTag in activeTags %}
+                          {% if activeTag != tag %}
+                            <input type="hidden" name="tags[]" value="{{ activeTag }}">
+                          {% endif %}
+                        {% endfor %}
+                        <button class="Button Button--secondary Button--small Button--delete Tag" type="submit">{{ tag }}</button>
+                      {% else %}
+                        {% for activeTag in activeTags %}
+                          <input type="hidden" name="tags[]" value="{{ activeTag }}">
+                        {% endfor %}
+                        <button class="Button Button--secondary Button--small Tag" type="submit" name="tags[]" value="{{ tag }}">{{ tag }}</button>
+                      {% endif %}
+                    </form>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              n/a
+            {% endif %}
+          </td>
+          <td class="Add-deleteNote">
+            <form action="/" method="POST">
+              <input type="hidden" value="{{ note.id }}" name="id">
+              <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                <svg class="DeleteButton-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 508"><path d="M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z"/><path d="M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z"/></svg>
+              </button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </main>
+{% endblock %}

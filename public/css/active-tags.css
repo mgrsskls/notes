@@ -1,0 +1,12 @@
+/** @define ActiveTags; */
+
+.ActiveTags {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ActiveTags-label {
+  font-weight: 600;
+}

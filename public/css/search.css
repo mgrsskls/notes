@@ -1,0 +1,11 @@
+/** @define Search; */
+
+.Search {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.Search-title {
+  font-weight: 800;
+}
