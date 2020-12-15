@@ -53,3 +53,16 @@ textarea:focus {
 button:focus {
   outline: 0.2rem solid var(--color-White);
 }
+
+.u-flex-row {
+  display: flex;
+}
+
+.u-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.u-flex-grow {
+  flex: 1;
+}

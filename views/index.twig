@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-  <header class="AddNote">
+  <header class="AddNote u-flex-col">
     <h1>Notes</h1>
-    <form class="Add" action="/" method="post">
+    <form class="Add u-flex-col u-flex-grow" action="/" method="post">
       <div class="Add-input">
         <label class="Add-label" for="title">{{ 'note.attributes.title'|t }}</label>
         <input type="text" name="title" id="title">
@@ -16,9 +16,9 @@
         <label class="Add-label" for="url">{{ 'note.attributes.url'|t }}</label>
         <input type="text" name="url" id="url">
       </div>
-      <div class="Add-input">
+      <div class="Add-input u-flex-col u-flex-grow">
         <label class="Add-label" for="text">{{ 'note.attributes.text'|t }}</label>
-        <textarea name="text" id="text"></textarea>
+        <textarea class="u-flex-grow" name="text" id="text"></textarea>
       </div>
       <div class="Add-input">
         <label class="Add-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
