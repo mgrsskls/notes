@@ -11,22 +11,18 @@ code {
   font-size: 0.875em;
 }
 
-.AddNote,
-.Content {
-  height: 100%;
-  overflow-y: auto;
-}
-
 .AddNote {
   background: var(--color-Secondary);
   color: var(--color-White);
   padding: 3rem;
-  resize: horizontal;
-  width: 25%;
 }
 
 .Content {
-  flex: 1;
+  flex: 0 1 75%;
+}
+
+.Main {
+  overflow-x: auto;
 }
 
 table {
@@ -99,4 +95,31 @@ td:first-child {
 .RichText em,
 .RichText i {
   font-style: italic;
+}
+
+@media (max-width: 56em) {
+  body {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 56.062em) {
+  body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    width: 100vw;
+  }
+
+  .AddNote,
+  .Content {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .AddNote {
+    flex: 1 0 25%;
+    min-width: 32rem;
+    resize: horizontal;
+  }
 }

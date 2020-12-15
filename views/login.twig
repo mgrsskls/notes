@@ -8,9 +8,11 @@
   <div class="Login">
     <h1>Notes</h1>
     <form class="Login-form" action="/login" method="post">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required>
-      <button class="Button Button--primary Button--large" type="submit">Login</button>
+      <div class="Input">
+        <label class="Input-label" for="password">Password</label>
+        <input class="Input-element" type="password" name="password" id="password" required>
+      </div>
+      <button class="Input Button Button--primary Button--large" type="submit">Login</button>
     </form>
   </div>
 {% endblock %}

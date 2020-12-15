@@ -1,19 +1,5 @@
 /** @define Add; */
 
-.Add-input + .Add-input {
-  margin-top: 2rem;
-}
-
-/* stylelint-disable-next-line */
-.Add-input input {
-  margin: 0.5em 0 0;
-}
-
-.Add-label {
-  display: block;
-  margin: 0 1em 0 0;
-}
-
 .Add-tags {
   margin: 1rem 0 0;
 }

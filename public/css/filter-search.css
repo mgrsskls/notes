@@ -3,8 +3,8 @@
 .FilterSearch {
   background: var(--color-Tertiary);
   color: var(--color-White);
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
-  grid-template-columns: 1fr 1fr;
   padding: 3rem;
 }

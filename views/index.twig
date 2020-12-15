@@ -8,21 +8,21 @@
   <header class="AddNote u-flex-col">
     <h1>Notes</h1>
     <form class="Add u-flex-col u-flex-grow" action="/" method="post">
-      <div class="Add-input">
-        <label class="Add-label" for="title">{{ 'note.attributes.title'|t }}</label>
-        <input type="text" name="title" id="title">
+      <div class="Input">
+        <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
+        <input class="Input-element" type="text" name="title" id="title">
       </div>
-      <div class="Add-input">
-        <label class="Add-label" for="url">{{ 'note.attributes.url'|t }}</label>
-        <input type="text" name="url" id="url">
+      <div class="Input">
+        <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
+        <input class="Input-element" type="text" name="url" id="url">
       </div>
-      <div class="Add-input u-flex-col u-flex-grow">
-        <label class="Add-label" for="text">{{ 'note.attributes.text'|t }}</label>
-        <textarea class="u-flex-grow" name="text" id="text"></textarea>
+      <div class="Input u-flex-col u-flex-grow">
+        <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
+        <textarea class="Input-element u-flex-grow" name="text" id="text"></textarea>
       </div>
-      <div class="Add-input">
-        <label class="Add-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
-        <input type="text" list="tags" id="tag">
+      <div class="Input">
+        <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
+        <input class="Input-element" type="text" list="tags" id="tag">
         <datalist id="tags">
           {% for tag in tags %}
             <option value="{{ tag }}">
@@ -37,10 +37,10 @@
           </template>
         </ul>
       </div>
-      <button class="Button Button--primary Button--large Add-input" type="submit">{{ 'note.create.submit'|t }}</button>
+      <button class="Button Button--primary Button--large Input" type="submit">{{ 'note.create.submit'|t }}</button>
     </form>
   </header>
-  <main class="Content">
+  <main class="Content u-flex-col">
     <div class="FilterSearch">
       <form class="Search">
         <label for="query">{{ 'search.label'|t }}</label>
@@ -68,69 +68,71 @@
       {% endif %}
     </div>
     {% if notes|length > 0 %}
-    <table class="Table">
-      <thead>
-        <tr>
-          <th>{{ 'note.attributes.title'|t }}</th>
-          <th>{{ 'note.attributes.url'|t }}</th>
-          <th>{{ 'note.attributes.text'|t }}</th>
-          <th>{{ 'note.attributes.tags'|t }}</th>
-          <th>{{ 'note.delete.submit'|t }}</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for note in notes %}
-        <tr class="Note">
-          <td class="Note-value">
-            {{ note.title }}
-          </td>
-          <td class="Note-value">
-            {% if note.url %}
-              <a href="{{ note.url }}" target="_blank" rel="noopener noreferrer">{{ note.url }}</a>
-            {% endif %}
-          </td>
-          <td class="Note-value">
-            <div class="RichText">
-              {{ note.text }}
-            </div>
-          </td>
-          <td>
-            {% if note.tags|length > 0 %}
-              <ul class="Tags">
-                {% for tag in note.tags %}
-                  <li>
-                    <form>
-                      {% if tag in activeTags %}
-                        {% for activeTag in activeTags %}
-                          {% if activeTag != tag %}
+    <div class="Main u-flex-grow">
+      <table class="Table">
+        <thead>
+          <tr>
+            <th>{{ 'note.attributes.title'|t }}</th>
+            <th>{{ 'note.attributes.url'|t }}</th>
+            <th>{{ 'note.attributes.text'|t }}</th>
+            <th>{{ 'note.attributes.tags'|t }}</th>
+            <th>{{ 'note.delete.submit'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for note in notes %}
+          <tr class="Note">
+            <td class="Note-value">
+              {{ note.title }}
+            </td>
+            <td class="Note-value">
+              {% if note.url %}
+                <a href="{{ note.url }}" target="_blank" rel="noopener noreferrer">{{ note.url }}</a>
+              {% endif %}
+            </td>
+            <td class="Note-value">
+              <div class="RichText">
+                {{ note.text }}
+              </div>
+            </td>
+            <td>
+              {% if note.tags|length > 0 %}
+                <ul class="Tags">
+                  {% for tag in note.tags %}
+                    <li>
+                      <form>
+                        {% if tag in activeTags %}
+                          {% for activeTag in activeTags %}
+                            {% if activeTag != tag %}
+                              <input type="hidden" name="tags[]" value="{{ activeTag }}">
+                            {% endif %}
+                          {% endfor %}
+                          <button class="Button Button--secondary Button--small Button--delete Tag" type="submit">{{ tag }}</button>
+                        {% else %}
+                          {% for activeTag in activeTags %}
                             <input type="hidden" name="tags[]" value="{{ activeTag }}">
-                          {% endif %}
-                        {% endfor %}
-                        <button class="Button Button--secondary Button--small Button--delete Tag" type="submit">{{ tag }}</button>
-                      {% else %}
-                        {% for activeTag in activeTags %}
-                          <input type="hidden" name="tags[]" value="{{ activeTag }}">
-                        {% endfor %}
-                        <button class="Button Button--secondary Button--small Tag" type="submit" name="tags[]" value="{{ tag }}">{{ tag }}</button>
-                      {% endif %}
-                    </form>
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          </td>
-          <td class="Add-deleteNote">
-            <form action="/" method="POST">
-              <input type="hidden" value="{{ note.id }}" name="id">
-              <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-                <svg class="DeleteButton-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 508"><path d="M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z"/><path d="M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z"/></svg>
-              </button>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+                          {% endfor %}
+                          <button class="Button Button--secondary Button--small Tag" type="submit" name="tags[]" value="{{ tag }}">{{ tag }}</button>
+                        {% endif %}
+                      </form>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </td>
+            <td class="Add-deleteNote">
+              <form action="/" method="POST">
+                <input type="hidden" value="{{ note.id }}" name="id">
+                <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                  <svg class="DeleteButton-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 508"><path d="M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z"/><path d="M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z"/></svg>
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
     {% endif %}
   </main>
 {% endblock %}

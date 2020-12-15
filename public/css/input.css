@@ -1,0 +1,9 @@
+/** @define Input; */
+
+.Input + .Input {
+  margin-top: 2rem;
+}
+
+.Input-element {
+  margin: 0.5em 0 0;
+}
