@@ -21,6 +21,7 @@ code {
   background: var(--color-Secondary);
   color: var(--color-White);
   padding: 3rem;
+  resize: horizontal;
   width: 25%;
 }
 
