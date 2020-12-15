@@ -43,7 +43,7 @@ module.exports = function Router(app) {
       login(res);
       res.redirect("/");
     } else {
-      res.redirect(401, "/login");
+      res.redirect("/login");
     }
   });
 };
