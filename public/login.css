@@ -1,10 +1,16 @@
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
 .Login {
   align-items: center;
   background: var(--color-Secondary);
   color: var(--color-White);
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
   margin: auto;
   width: 100%;
