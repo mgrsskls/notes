@@ -2,6 +2,13 @@
 @import "./css/button.css";
 @import "./css/input.css";
 
+@font-face {
+  font-family: "Langar";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url("/fonts/langar-regular.woff2") format("woff2"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 html {
   --color-Primary: #9f2050;
   --color-Secondary: #062b3e;
@@ -20,13 +27,14 @@ body {
 }
 
 h1 {
-  font-size: 3.2rem;
-  font-weight: 800;
+  font-family: Langar, Helvetica, sans-serif;
+  font-size: 4.8rem;
+  font-weight: 400;
   text-align: center;
 }
 
 h1 + form {
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 label {

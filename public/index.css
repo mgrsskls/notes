@@ -14,7 +14,7 @@ code {
 .AddNote {
   background: var(--color-Secondary);
   color: var(--color-White);
-  padding: 3rem;
+  padding: 2rem 3rem 3rem;
 }
 
 .Content {
