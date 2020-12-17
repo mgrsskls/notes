@@ -12,10 +12,15 @@ const locales = {
         tags: "Tags",
       },
       create: {
-        submit: "Save",
+        submit: "Create",
       },
       delete: {
         submit: "Delete",
+      },
+      update: {
+        link: "Edit",
+        submit: "Update",
+        cancel: "Cancel",
       },
     },
     search: {

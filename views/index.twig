@@ -6,19 +6,22 @@
 
 {% block content %}
   <header class="AddNote u-flex-col">
-    <h1>Notes</h1>
+    <h1><a href="/">Notes</a></h1>
     <form class="Add u-flex-col u-flex-grow" action="/" method="post">
+      {% if edit %}
+        <input type="hidden" name="id" value="{{ edit.id }}">
+      {% endif %}
       <div class="Input">
         <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
-        <input class="Input-element" type="text" name="title" id="title">
+        <input class="Input-element" type="text" name="title" id="title" value="{{ edit.title }}">
       </div>
       <div class="Input">
         <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
-        <input class="Input-element" type="text" name="url" id="url">
+        <input class="Input-element" type="text" name="url" id="url" value="{{ edit.url }}">
       </div>
       <div class="Input u-flex-col u-flex-grow">
         <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
-        <textarea class="Input-element u-flex-grow" name="text" id="text"></textarea>
+        <textarea class="Input-element u-flex-grow" name="text" id="text">{{ edit.text }}</textarea>
       </div>
       <div class="Input">
         <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
@@ -29,6 +32,12 @@
           {% endfor %}
         </datalist>
         <ul class="Add-tags Tags">
+          {% for tag in edit.tags %}
+            <li class="Add-tag">
+              <input type="hidden" name="tags[]" value="{{ tag }}">
+              <button class="Button Button--tertiary Button--small Button--delete Tag" type="button">{{ tag }}</button>
+            </li>
+          {% endfor %}
           <template id="tag-template">
             <li class="Add-tag">
               <input type="hidden" name="tags[]">
@@ -37,7 +46,12 @@
           </template>
         </ul>
       </div>
-      <button class="Button Button--primary Button--large Input" type="submit">{{ 'note.create.submit'|t }}</button>
+      <div class="Input">
+        <button class="Button Button--primary Button--large" type="submit"{% if edit %} name="update"{% endif %}>{{ edit ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
+        {% if edit %}
+          <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+        {% endif %}
+      </div>
     </form>
   </header>
   <main class="Content u-flex-col">
@@ -76,7 +90,7 @@
             <th>{{ 'note.attributes.url'|t }}</th>
             <th>{{ 'note.attributes.text'|t }}</th>
             <th>{{ 'note.attributes.tags'|t }}</th>
-            <th>{{ 'note.delete.submit'|t }}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -120,11 +134,11 @@
                 </ul>
               {% endif %}
             </td>
-            <td class="Add-deleteNote">
-              <form action="/" method="POST">
+            <td class="Add-actions">
+              <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }}</a> &middot; <form action="/" method="POST">
                 <input type="hidden" value="{{ note.id }}" name="id">
                 <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-                  <svg class="DeleteButton-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 508"><path d="M.002 67.876L67.878 0l439.986 439.986-67.876 67.876z"/><path d="M.002 439.992L439.988.006l67.876 67.876L67.878 507.868z"/></svg>
+                  {{ 'note.delete.submit'|t }}
                 </button>
               </form>
             </td>

@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
 
+  Array.from(document.querySelectorAll(".Add-tags button")).forEach((button) =>
+    button.addEventListener(
+      "click",
+      (evt) => {
+        evt.target.closest("li").remove();
+      },
+      { once: true }
+    )
+  );
+
   document.getElementById("tag").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && e.target.value.trim().length > 0) {
       e.preventDefault();

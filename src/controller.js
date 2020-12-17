@@ -2,11 +2,11 @@ const Md = require("markdown-it");
 const db = require("./db");
 
 module.exports = {
-  async index({ tags: activeTags = [], query }) {
+  async index({ tags: activeTags = [], query, edit }) {
     return new Promise((resolve) => {
       db.query(
         `
-          SELECT * FROM public.notes ${
+          SELECT * FROM notes ${
             query
               ? `WHERE title ILIKE '%${query}%' OR url ILIKE '%${query}%' OR text ILIKE '%${query}%'`
               : ""
@@ -17,17 +17,18 @@ module.exports = {
         (error, [notesResult, tagsResult]) => {
           if (error) throw error;
 
-          const tags = tagsResult.rows;
+          const allTags = tagsResult.rows;
 
           let notes = notesResult.rows.map(({ id, title, url, text }) => {
             return {
               id,
               title,
               url,
-              text: convertMarkdownToHtml(text),
-              tags: tags
+              text,
+              tags: allTags
                 .filter(({ note_id: nodeId }) => nodeId === id)
-                .map(({ tag }) => tag),
+                .map(({ tag }) => tag)
+                .sort(),
             };
           });
 
@@ -38,10 +39,17 @@ module.exports = {
           }
 
           resolve({
-            notes,
-            tags: [...new Set(tags.map((tag) => tag.tag))],
+            notes: notes.map(({ id, title, url, text, tags }) => ({
+              id,
+              title,
+              url,
+              text: convertMarkdownToHtml(text),
+              tags,
+            })),
+            tags: [...new Set(allTags.map((tag) => tag.tag))],
             activeTags,
             query,
+            edit: notes.find((note) => note.id === parseInt(edit, 10)),
           });
         }
       );
@@ -53,14 +61,14 @@ module.exports = {
       db.query(
         `
         BEGIN;
-          INSERT INTO public.notes (title, url, text) VALUES (${
+          INSERT INTO notes (title, url, text) VALUES (${
             title === "" ? null : `'${title}'`
           }, ${url === "" ? null : `'${url}'`}, ${
           text === "" ? null : `'${text}'`
         }) RETURNING id;
         ${
           tags && tags.length > 0
-            ? `INSERT INTO public.tags(note_id, tag) VALUES ${tags
+            ? `INSERT INTO tags(note_id, tag) VALUES ${tags
                 .map((tag) => `(lastval(), '${tag}')`)
                 .join(",")};`
             : ""
@@ -81,9 +89,37 @@ module.exports = {
     return new Promise((resolve) => {
       db.query(
         `
-        DELETE FROM public.tags WHERE note_id = ${id};
-        DELETE FROM public.notes WHERE id = ${id};
+        DELETE FROM tags WHERE note_id = ${id};
+        DELETE FROM notes WHERE id = ${id};
       `,
+        [],
+        (error) => {
+          if (error) throw error;
+
+          resolve();
+        }
+      );
+    });
+  },
+
+  async update({ id, title, url, text, tags }) {
+    return new Promise((resolve) => {
+      db.query(
+        `
+      UPDATE notes
+      SET title = '${title}',
+          url = '${url}',
+          text = '${text}'
+      WHERE id = ${id};
+      DELETE FROM tags
+      WHERE note_id = ${id};
+      ${
+        tags && tags.length > 0
+          ? `INSERT INTO tags(note_id, tag) VALUES ${tags
+              .map((tag) => `(${id}, '${tag}')`)
+              .join(",")};`
+          : ""
+      }`,
         [],
         (error) => {
           if (error) throw error;

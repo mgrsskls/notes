@@ -33,6 +33,15 @@ h1 {
   text-align: center;
 }
 
+h1 a {
+  text-decoration: none;
+}
+
+h1 a:hover,
+h1 a:focus {
+  text-decoration: underline;
+}
+
 h1 + form {
   margin-top: 2rem;
 }

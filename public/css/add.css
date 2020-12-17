@@ -4,7 +4,14 @@
   margin: 1rem 0 0;
 }
 
-.Add-deleteNote {
+.Add-actions {
   text-align: center;
-  width: 10ch;
+}
+
+.Add-actions * {
+  display: inline;
+}
+
+.Add-cancel {
+  margin-inline-start: 1rem;
 }

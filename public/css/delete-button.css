@@ -2,10 +2,6 @@
 
 /** @define DeleteButton; */
 
-.DeleteButton-icon {
-  --size: 1em;
-
-  fill: var(--color-Secondary);
-  height: var(--size);
-  width: var(--size);
+.DeleteButton {
+  text-decoration: underline;
 }

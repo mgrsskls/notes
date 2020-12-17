@@ -1,5 +1,5 @@
 const { verify, login, checkPassword } = require("./auth");
-const { index, create, destroy } = require("./controller");
+const { index, create, update, destroy } = require("./controller");
 
 module.exports = function Router(app) {
   app.get("/", (req, res) => {
@@ -19,6 +19,8 @@ module.exports = function Router(app) {
       .then(async () => {
         if ("delete" in req.body) {
           await destroy(req.body);
+        } else if ("update" in req.body) {
+          await update(req.body);
         } else {
           await create(req.body);
         }
