@@ -44,7 +44,7 @@
     <div class="FilterSearch">
       <form class="Search">
         <label for="query">{{ 'search.label'|t }}</label>
-        <input class="Search-input" type="search" name="query" id="query">
+        <input class="Search-input" type="search" name="query" id="query" value="{{ query }}">
         <button class="Search-button Button Button--primary Button--large" type="submit">{{ 'search.submit'|t }}</button>
       </form>
       {% if activeTags|length > 0 %}

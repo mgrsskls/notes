@@ -2,11 +2,15 @@ const Md = require("markdown-it");
 const db = require("./db");
 
 module.exports = {
-  async index({ tags: activeTags = [] }) {
+  async index({ tags: activeTags = [], query }) {
     return new Promise((resolve) => {
       db.query(
         `
-          SELECT * FROM public.notes ORDER BY created_at DESC;
+          SELECT * FROM public.notes ${
+            query
+              ? `WHERE title ILIKE '%${query}%' OR url ILIKE '%${query}%' OR text ILIKE '%${query}%'`
+              : ""
+          } ORDER BY created_at DESC;
           SELECT * FROM tags;
           `,
         [],
@@ -37,6 +41,7 @@ module.exports = {
             notes,
             tags: [...new Set(tags.map((tag) => tag.tag))],
             activeTags,
+            query,
           });
         }
       );
