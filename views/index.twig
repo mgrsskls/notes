@@ -134,13 +134,20 @@
                 </ul>
               {% endif %}
             </td>
-            <td class="Add-actions">
-              <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }}</a> &middot; <form action="/" method="POST">
-                <input type="hidden" value="{{ note.id }}" name="id">
-                <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-                  {{ 'note.delete.submit'|t }}
-                </button>
-              </form>
+            <td class="Note-actions">
+              <ul class="Note-actionsList">
+                <li>
+                  <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }}</a>
+                </li>
+                <li>
+                  <form action="/" method="POST">
+                    <input type="hidden" value="{{ note.id }}" name="id">
+                    <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                      {{ 'note.delete.submit'|t }}
+                    </button>
+                  </form>
+                </li>
+              </ul>
             </td>
           </tr>
         {% endfor %}

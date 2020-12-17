@@ -71,6 +71,16 @@ td:first-child {
   font-weight: 600;
 }
 
+.Note-actionsList {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.Note-actionsList > * + * {
+  margin-inline-start: 1rem;
+}
+
 .RichText * + * {
   margin-top: 1.5em;
 }

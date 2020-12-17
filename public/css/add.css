@@ -8,10 +8,6 @@
   text-align: center;
 }
 
-.Add-actions * {
-  display: inline;
-}
-
 .Add-cancel {
   margin-inline-start: 1rem;
 }
