@@ -57,6 +57,8 @@ module.exports = {
   },
 
   async create({ title, url, text, tags }) {
+    if (!title && !url && !text) return true;
+
     return new Promise((resolve) => {
       db.query(
         `
