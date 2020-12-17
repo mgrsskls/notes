@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const compression = require("compression");
 const dotProp = require("dot-prop");
 
 const Router = require("./src/router");
@@ -22,6 +23,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "twig");

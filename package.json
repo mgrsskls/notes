@@ -11,6 +11,7 @@
   "dependencies": {
     "@factorial/stack-css": "^0.2.5",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "dot-prop": "^6.0.1",
     "express": "^4.17.1",
