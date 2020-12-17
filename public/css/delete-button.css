@@ -1,14 +1,11 @@
 /** @define DeleteButton; */
 
-.DeleteButton {
-  --size: 2.8rem;
-
-  color: var(--color-Secondary);
-  height: var(--size);
-  width: var(--size);
-}
+/** @define DeleteButton; */
 
 .DeleteButton-icon {
+  --size: 1em;
+
   fill: var(--color-Secondary);
-  transform: scale(0.5);
+  height: var(--size);
+  width: var(--size);
 }

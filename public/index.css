@@ -13,6 +13,7 @@ code {
 
 .AddNote {
   background: var(--color-Secondary);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   color: var(--color-White);
   padding: 2rem 3rem 3rem;
 }
@@ -31,7 +32,8 @@ table {
 }
 
 thead {
-  background: var(--color-White);
+  background: var(--color-Light);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -40,7 +42,7 @@ thead {
 th,
 td {
   color: inherit;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 }
 
 th {
@@ -65,11 +67,8 @@ th:not(:last-child) {
   text-align: left;
 }
 
-tbody tr:nth-child(odd) {
-  background: var(--color-Light);
-}
-
 td {
+  border-block: 0.1rem solid var(--color-Light);
   vertical-align: top;
 }
 
