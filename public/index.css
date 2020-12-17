@@ -54,11 +54,6 @@ td:first-child {
   padding-left: 3rem;
 }
 
-th:last-child,
-td:last-child {
-  padding-right: 3rem;
-}
-
 th {
   font-weight: bold;
 }
