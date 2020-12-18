@@ -140,7 +140,7 @@
                   <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }}</a>
                 </li>
                 <li>
-                  <form action="/" method="POST">
+                  <form action="/" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
                     <input type="hidden" value="{{ note.id }}" name="id">
                     <button class="DeleteButton" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
                       {{ 'note.delete.submit'|t }}

@@ -15,6 +15,7 @@ const locales = {
         submit: "Create",
       },
       delete: {
+        confirm: "Do you really want to delete this note?",
         submit: "Delete",
       },
       update: {
