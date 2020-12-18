@@ -5,6 +5,7 @@ const locales = {
       password: "Password",
     },
     note: {
+      label: "note",
       attributes: {
         title: "Title",
         url: "URL",

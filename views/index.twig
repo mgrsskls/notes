@@ -137,7 +137,7 @@
             <td class="Note-actions">
               <ul class="Note-actionsList">
                 <li>
-                  <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }}</a>
+                  <a href="/?edit={{ note.id }}">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ note.title }}"</span></a>
                 </li>
                 <li>
                   <form action="/" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
