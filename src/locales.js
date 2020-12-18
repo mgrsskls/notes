@@ -30,7 +30,7 @@ const locales = {
       submit: "Submit",
     },
     filter: {
-      label: "Filtered by:",
+      label: "Filter",
     },
   },
 };

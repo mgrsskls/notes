@@ -5,3 +5,9 @@
   list-style: none;
   margin-left: 0;
 }
+
+.Tag {
+  border: 0.1rem solid;
+  font-weight: 600;
+  padding: 0.15em 0.3em;
+}
