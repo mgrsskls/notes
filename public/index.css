@@ -76,7 +76,7 @@ th:not(:last-child) {
 }
 
 td {
-  border-block: 0.1rem solid var(--color-Light);
+  border-block-end: 0.2rem solid var(--color-Light);
   vertical-align: top;
 }
 
