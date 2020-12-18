@@ -7,3 +7,8 @@
 .Input-element {
   margin: 0.5em 0 0;
 }
+
+.Input-element[aria-invalid] {
+  background: #ffc4c4;
+  border-color: red;
+}

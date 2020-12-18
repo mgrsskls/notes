@@ -1,0 +1,11 @@
+/** @define ErrorMsg; */
+
+.ErrorMsg {
+  color: #ffc4c4;
+  display: none;
+  margin-block-start: 0.5rem;
+}
+
+[aria-invalid] + .ErrorMsg {
+  display: block;
+}

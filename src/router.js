@@ -17,15 +17,17 @@ module.exports = function Router(app) {
   app.post("/", (req, res) => {
     verify(req)
       .then(async () => {
+        let data;
+
         if ("delete" in req.body) {
-          await destroy(req.body);
+          data = await destroy(req.body);
         } else if ("update" in req.body) {
-          await update(req.body);
+          data = await update(req.body);
         } else {
-          await create(req.body);
+          data = await create(req.body);
         }
 
-        const data = await index(req.query);
+        data = { ...(await index(req.query)), ...data };
 
         res.render("index", data);
       })

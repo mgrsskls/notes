@@ -12,6 +12,9 @@ const locales = {
         text: "Text",
         tags: "Tags",
       },
+      validation: {
+        title: "Title needs to be filled out",
+      },
       create: {
         submit: "Create",
       },

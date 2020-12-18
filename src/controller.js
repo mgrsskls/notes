@@ -49,7 +49,9 @@ module.exports = {
             tags: [...new Set(allTags.map((tag) => tag.tag))],
             activeTags,
             query,
-            edit: notes.find((note) => note.id === parseInt(edit, 10)),
+            note: edit
+              ? notes.find((note) => note.id === parseInt(edit, 10))
+              : null,
           });
         }
       );
@@ -57,12 +59,9 @@ module.exports = {
   },
 
   async create({ title, url, text, tags }) {
-    if (!title && !url && !text) return true;
-
     return new Promise((resolve) => {
       db.query(
         `
-        BEGIN;
           INSERT INTO notes (title, url, text) VALUES (${
             title === "" ? null : `'${title}'`
           }, ${url === "" ? null : `'${url}'`}, ${
@@ -75,11 +74,15 @@ module.exports = {
                 .join(",")};`
             : ""
         }
-        COMMIT;
       `,
         [],
         (error) => {
-          if (error) throw error;
+          if (error) {
+            resolve({
+              error: error.toString(),
+              note: { title, url, text, tags },
+            });
+          }
 
           resolve();
         }
@@ -109,9 +112,9 @@ module.exports = {
       db.query(
         `
       UPDATE notes
-      SET title = '${title}',
-          url = '${url}',
-          text = '${text}'
+      SET title = ${title === "" ? null : `'${title}'`},
+          url = ${url === "" ? null : `'${url}'`},
+          text = ${text === "" ? null : `'${text}'`}
       WHERE id = ${id};
       DELETE FROM tags
       WHERE note_id = ${id};
@@ -124,7 +127,12 @@ module.exports = {
       }`,
         [],
         (error) => {
-          if (error) throw error;
+          if (error) {
+            resolve({
+              error: error.toString(),
+              note: { title, url, text, tags },
+            });
+          }
 
           resolve();
         }

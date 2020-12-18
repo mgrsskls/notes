@@ -8,20 +8,21 @@
   <header class="AddNote u-flex-col">
     <h1><a href="/">Notes</a></h1>
     <form class="Add u-flex-col u-flex-grow" action="/" method="post">
-      {% if edit %}
-        <input type="hidden" name="id" value="{{ edit.id }}">
+      {% if note and note.id %}
+        <input type="hidden" name="id" value="{{ note.id }}">
       {% endif %}
       <div class="Input">
         <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
-        <input class="Input-element" type="text" name="title" id="title" value="{{ edit.title }}">
+        <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not title %} aria-invalid="true"{% endif %} required>
+        <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
       </div>
       <div class="Input">
         <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
-        <input class="Input-element" type="text" name="url" id="url" value="{{ edit.url }}">
+        <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
       </div>
       <div class="Input u-flex-col u-flex-grow">
         <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
-        <textarea class="Input-element u-flex-grow" name="text" id="text">{{ edit.text }}</textarea>
+        <textarea class="Input-element u-flex-grow" name="text" id="text">{{ note.text }}</textarea>
       </div>
       <div class="Input">
         <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
@@ -32,7 +33,7 @@
           {% endfor %}
         </datalist>
         <ul class="Add-tags Tags">
-          {% for tag in edit.tags %}
+          {% for tag in note.tags %}
             <li class="Add-tag">
               <input type="hidden" name="tags[]" value="{{ tag }}">
               <button class="Button Button--tertiary Button--small Button--delete Tag" type="button">{{ tag }}</button>
@@ -47,8 +48,8 @@
         </ul>
       </div>
       <div class="Input">
-        <button class="Button Button--primary Button--large" type="submit"{% if edit %} name="update"{% endif %}>{{ edit ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
-        {% if edit %}
+        <button class="Button Button--primary Button--large" type="submit"{% if note and note.id %} name="update"{% endif %}>{{ note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
+        {% if note and note.id %}
           <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
         {% endif %}
       </div>
