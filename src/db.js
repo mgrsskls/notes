@@ -27,7 +27,7 @@ module.exports = {
   },
 
   getTags: (cb) => {
-    client.query("SELECT * FROM tags", [], (error, response) => {
+    client.query("SELECT * FROM tags ORDER BY tag", [], (error, response) => {
       cb(error, response);
     });
   },
