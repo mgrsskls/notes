@@ -3,140 +3,157 @@ const db = require("./db");
 
 module.exports = {
   async index({ tags: activeTags = [], query, edit }) {
-    return new Promise((resolve) => {
-      db.query(
-        `
-          SELECT * FROM notes ${
-            query
-              ? `WHERE title ILIKE '%${query}%' OR url ILIKE '%${query}%' OR text ILIKE '%${query}%'`
-              : ""
-          } ORDER BY created_at DESC;
-          SELECT * FROM tags;
-          `,
-        [],
-        (error, [notesResult, tagsResult]) => {
-          if (error) throw error;
-
-          const allTags = tagsResult.rows;
-
-          let notes = notesResult.rows.map(({ id, title, url, text }) => {
-            return {
-              id,
-              title,
-              url,
-              text,
-              tags: allTags
-                .filter(({ note_id: nodeId }) => nodeId === id)
-                .map(({ tag }) => tag)
-                .sort(),
-            };
+    return new Promise((resolveIndex) => {
+      Promise.all([
+        new Promise((resolve) => {
+          db.getNotes(query, (error, res) => {
+            resolve(res);
           });
-
-          if (activeTags.length > 0) {
-            notes = notes.filter((note) =>
-              activeTags.every((tag) => note.tags.includes(tag))
-            );
-          }
-
-          resolve({
-            notes: notes.map(({ id, title, url, text, tags }) => ({
-              id,
-              title,
-              url,
-              text: convertMarkdownToHtml(text),
-              tags,
-            })),
-            tags: [...new Set(allTags.map((tag) => tag.tag))],
-            activeTags,
-            query,
-            note: edit
-              ? notes.find((note) => note.id === parseInt(edit, 10))
-              : null,
+        }),
+        new Promise((resolve) => {
+          db.getTags((error, res) => {
+            resolve(res);
           });
+        }),
+      ]).then((res) => {
+        const allTags = res[1].rows;
+        let notes = res[0].rows.map(({ id, title, url, text }) => {
+          return {
+            id,
+            title,
+            url,
+            text,
+            tags: allTags
+              .filter(({ note_id: nodeId }) => nodeId === id)
+              .map(({ tag }) => tag)
+              .sort(),
+          };
+        });
+
+        if (activeTags.length > 0) {
+          notes = notes.filter((note) =>
+            activeTags.every((tag) => note.tags.includes(tag))
+          );
         }
-      );
+
+        resolveIndex({
+          notes: notes.map(({ id, title, url, text, tags }) => ({
+            id,
+            title,
+            url,
+            text: convertMarkdownToHtml(text),
+            tags,
+          })),
+          tags: [...new Set(allTags.map((tag) => tag.tag))],
+          activeTags,
+          query,
+          note: edit
+            ? notes.find((note) => note.id === parseInt(edit, 10))
+            : null,
+        });
+      });
     });
   },
 
   async create({ title, url, text, tags }) {
-    return new Promise((resolve) => {
-      db.query(
-        `
-          INSERT INTO notes (title, url, text) VALUES (${
-            title === "" ? null : `'${title}'`
-          }, ${url === "" ? null : `'${url}'`}, ${
-          text === "" ? null : `'${text}'`
-        }) RETURNING id;
-        ${
-          tags && tags.length > 0
-            ? `INSERT INTO tags(note_id, tag) VALUES ${tags
-                .map((tag) => `(lastval(), '${tag}')`)
-                .join(",")};`
-            : ""
-        }
-      `,
-        [],
-        (error) => {
-          if (error) {
-            resolve({
-              error: error.toString(),
-              note: { title, url, text, tags },
-            });
-          }
+    let result;
 
-          resolve();
-        }
-      );
-    });
+    try {
+      result = await db.createNote(title, url, text);
+    } catch (error) {
+      return {
+        error: error.toString(),
+        note: { title, url, text, tags },
+      };
+    }
+
+    if (
+      result &&
+      result.rows &&
+      result.rows[0] &&
+      result.rows[0].id &&
+      tags &&
+      tags.length > 0
+    ) {
+      try {
+        return await db.createTags(result.rows[0].id, tags);
+      } catch (error) {
+        return {
+          error: error.toString(),
+          note: { title, url, text, tags },
+        };
+      }
+    } else {
+      return true;
+    }
   },
 
   async destroy({ id }) {
     return new Promise((resolve) => {
-      db.query(
-        `
-        DELETE FROM tags WHERE note_id = ${id};
-        DELETE FROM notes WHERE id = ${id};
-      `,
-        [],
-        (error) => {
-          if (error) throw error;
-
-          resolve();
-        }
-      );
+      Promise.all([
+        new Promise((res) => {
+          db.deleteTags(id, (error) => {
+            if (error) throw error;
+            res();
+          });
+        }),
+        new Promise((res) => {
+          db.deleteNote(id, (error) => {
+            if (error) throw error;
+            res();
+          });
+        }),
+      ]).then(resolve);
     });
   },
 
   async update({ id, title, url, text, tags }) {
     return new Promise((resolve) => {
-      db.query(
-        `
-      UPDATE notes
-      SET title = ${title === "" ? null : `'${title}'`},
-          url = ${url === "" ? null : `'${url}'`},
-          text = ${text === "" ? null : `'${text}'`}
-      WHERE id = ${id};
-      DELETE FROM tags
-      WHERE note_id = ${id};
-      ${
-        tags && tags.length > 0
-          ? `INSERT INTO tags(note_id, tag) VALUES ${tags
-              .map((tag) => `(${id}, '${tag}')`)
-              .join(",")};`
-          : ""
-      }`,
-        [],
-        (error) => {
-          if (error) {
-            resolve({
-              error: error.toString(),
-              note: { title, url, text, tags },
-            });
-          }
+      const promises = [
+        new Promise((res) => {
+          db.updateNote({ title, url, text, id }, (error) => {
+            if (error) {
+              res({
+                error: error.toString(),
+                note: { title, url, text, tags },
+              });
+            } else {
+              res();
+            }
+          });
+        }),
+        new Promise((res) => {
+          db.deleteTags(id, async (error) => {
+            if (error) {
+              res({
+                error: error.toString(),
+                note: { title, url, text, tags },
+              });
+            } else if (tags && tags.length > 0) {
+              const params = [];
 
-          resolve();
-        }
-      );
+              tags.forEach((tag) => {
+                params.push(id);
+                params.push(tag);
+              });
+
+              try {
+                await db.createTags(id, tags);
+                res();
+              } catch (err) {
+                res({
+                  error: err.toString(),
+                  note: { title, url, text, tags },
+                });
+              }
+            } else {
+              res();
+            }
+          });
+        }),
+      ];
+
+      Promise.all(promises).then(resolve);
     });
   },
 };

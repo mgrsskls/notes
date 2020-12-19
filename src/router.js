@@ -28,7 +28,6 @@ module.exports = function Router(app) {
         }
 
         data = { ...(await index(req.query)), ...data };
-
         res.render("index", data);
       })
       .catch(() => {

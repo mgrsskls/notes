@@ -13,7 +13,7 @@
       {% endif %}
       <div class="Input">
         <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
-        <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not title %} aria-invalid="true"{% endif %} required>
+        <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not note.title %} aria-invalid="true"{% endif %} required>
         <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
       </div>
       <div class="Input">
