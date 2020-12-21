@@ -5,10 +5,16 @@
     <link rel="preload" href="/fonts/langar-regular.woff2" as="font" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notes</title>
-    <script src="index.js" async></script>
-    <link rel="stylesheet" href="common.css">
+    <script src="/index.js" async></script>
+    <link rel="stylesheet" href="/common.css">
     {% block head %}{% endblock %}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/favicon.svg" color="#062b3e">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   </head>
   <body>
     {% block content %}{% endblock %}

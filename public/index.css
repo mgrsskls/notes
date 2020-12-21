@@ -30,6 +30,8 @@ code {
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   color: var(--color-White);
   padding: 2rem 3rem 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .Content {
@@ -37,6 +39,7 @@ code {
 }
 
 .Main {
+  background: var(--color-White);
   overflow-x: auto;
 }
 
