@@ -5,55 +5,60 @@
 {% endblock %}
 
 {% block content %}
-  <header class="AddNote u-flex-col">
-    <h1><a href="/">Notes</a></h1>
-    <form class="Add u-flex-col u-flex-grow" action="/" method="post">
-      {% if note and note.id %}
-        <input type="hidden" name="id" value="{{ note.id }}">
-      {% endif %}
-      <div class="Input">
-        <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
-        <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not note.title %} aria-invalid="true"{% endif %} required>
-        <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
-      </div>
-      <div class="Input">
-        <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
-        <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
-      </div>
-      <div class="Input u-flex-col u-flex-grow">
-        <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
-        <textarea class="Input-element u-flex-grow" name="text" id="text">{{ note.text }}</textarea>
-      </div>
-      <div class="Input">
-        <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
-        <input class="Input-element" type="text" list="tags" id="tag">
-        <datalist id="tags">
-          {% for tag in tags %}
-            <option value="{{ tag }}">
-          {% endfor %}
-        </datalist>
-        <ul class="Add-tags Tags">
-          {% for tag in note.tags %}
-            <li class="Add-tag">
-              <input type="hidden" name="tags[]" value="{{ tag }}">
-              <button class="Button Button--tertiary Button--small Button--delete Tag" type="button">{{ tag }}</button>
-            </li>
-          {% endfor %}
-          <template id="tag-template">
-            <li class="Add-tag">
-              <input type="hidden" name="tags[]">
-              <button class="Button Button--tertiary Button--small Button--delete Tag" type="button"></button>
-            </li>
-          </template>
-        </ul>
-      </div>
-      <div class="Input">
-        <button class="Button Button--primary Button--large" type="submit"{% if note and note.id %} name="update"{% endif %}>{{ note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
+  <header class="AddNote">
+    <button class="AddNote-toggle" aria-expanded="{% if note %}true{% else %}false{% endif %}" aria-controls="add-note" aria-label="{{ 'note.toggle'|t }}">
+      <svg height="448" viewBox="0 0 448 448" width="448" xmlns="http://www.w3.org/2000/svg"><path d="M408 184H272a8 8 0 01-8-8V40a40 40 0 00-80 0v136a8 8 0 01-8 8H40a40 40 0 000 80h136a8 8 0 018 8v136a40 40 0 0080 0V272a8 8 0 018-8h136a40 40 0 000-80zm0 0"/></svg>
+    </button>
+    <div class="AddNote-wrapper u-flex-col" id="add-note">
+      <h1><a href="/">Notes</a></h1>
+      <form class="Add u-flex-col u-flex-grow" action="/" method="post">
         {% if note and note.id %}
-          <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+          <input type="hidden" name="id" value="{{ note.id }}">
         {% endif %}
-      </div>
-    </form>
+        <div class="Input">
+          <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
+          <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not note.title %} aria-invalid="true"{% endif %} required>
+          <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
+        </div>
+        <div class="Input">
+          <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
+          <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
+        </div>
+        <div class="Input u-flex-col u-flex-grow">
+          <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
+          <textarea class="Input-element u-flex-grow" name="text" id="text">{{ note.text }}</textarea>
+        </div>
+        <div class="Input">
+          <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
+          <input class="Input-element" type="text" list="tags" id="tag">
+          <datalist id="tags">
+            {% for tag in tags %}
+              <option value="{{ tag }}">
+            {% endfor %}
+          </datalist>
+          <ul class="Add-tags Tags">
+            {% for tag in note.tags %}
+              <li class="Add-tag">
+                <input type="hidden" name="tags[]" value="{{ tag }}">
+                <button class="Button Button--tertiary Button--small Button--delete Tag" type="button">{{ tag }}</button>
+              </li>
+            {% endfor %}
+            <template id="tag-template">
+              <li class="Add-tag">
+                <input type="hidden" name="tags[]">
+                <button class="Button Button--tertiary Button--small Button--delete Tag" type="button"></button>
+              </li>
+            </template>
+          </ul>
+        </div>
+        <div class="Input">
+          <button class="Button Button--primary Button--large" type="submit"{% if note and note.id %} name="update"{% endif %}>{{ note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
+          {% if note and note.id %}
+            <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+          {% endif %}
+        </div>
+      </form>
+    </div>
   </header>
   <main class="Content u-flex-col">
     <div class="FilterSearch">

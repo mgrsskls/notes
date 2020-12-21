@@ -5,6 +5,7 @@ const locales = {
       password: "Password",
     },
     note: {
+      toggle: "Add note",
       label: "note",
       attributes: {
         title: "Title",

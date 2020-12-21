@@ -1,6 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
 
+  document
+    .querySelector(".AddNote-toggle")
+    .addEventListener("click", function onToggleClick(e) {
+      const toggle = e.target.closest("button");
+
+      if (toggle.getAttribute("aria-expanded") === "false") {
+        toggle.setAttribute("aria-expanded", "true");
+        document.getElementById("title").focus();
+      } else {
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
   Array.from(document.querySelectorAll(".Add-tags button")).forEach((button) =>
     button.addEventListener(
       "click",
