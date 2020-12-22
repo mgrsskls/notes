@@ -32,8 +32,11 @@ code {
   background: var(--color-Secondary);
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   color: var(--color-White);
-  padding: 2rem 3rem 3rem;
   z-index: 1;
+}
+
+.AddNote-wrapper {
+  padding: 2rem 3rem 3rem;
 }
 
 .Content {
@@ -85,5 +88,27 @@ code {
     overflow-y: auto;
     position: sticky;
     top: 0;
+  }
+
+  .AddNote,
+  .AddNote-wrapper,
+  .Tabs,
+  .Tab:not([hidden]),
+  .Add,
+  .Add-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .AddNote-wrapper,
+  .Tabs,
+  .Tab,
+  .Add,
+  .Add-text {
+    flex-grow: 1;
+  }
+
+  .Add-textInput {
+    height: 100%;
   }
 }

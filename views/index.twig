@@ -6,100 +6,102 @@
 
 {% block content %}
   <header class="AddNote">
-    <h1><a href="/">Notes</a></h1>
-    <div class="Tabs">
-      <ul class="Tabs-navigation">
-        <li class="Tabs-navigationItem"><button class="Tabs-button" aria-controls="tab-filter-search"{% if not note %} aria-expanded="true"{% endif %}>Filter</button></li>
-        <li class="Tabs-navigationItem"><button class="Tabs-button" aria-controls="tab-add-note"{% if note %} aria-expanded="true"{% endif %}>Add</button></li>
-      </ul>
-      <div class="Tab" id="tab-filter-search"{% if note %} hidden{% endif %}>
-        <div class="FilterSearch">
-          <form class="Search">
-            <label for="query">{{ 'search.label'|t }}</label>
-            <div class="Search-wrapper">
-              <input class="Search-input" type="search" name="query" id="query" value="{{ query }}">
-              <button class="Search-button Button Button--primary Button--iconOnly" type="submit">
-                <span class="u-hiddenVisually">{{ 'search.submit'|t }}</span>
-                <span aria-hidden="true">&rarr;</span>
-              </button>
-            </div>
-          </form>
-          {% if tags|length > 0 %}
-            <div class="ActiveTags FilterSearch-activeTags">
-              <p class="ActiveTags-label">{{ 'tags.label'|t }}</p>
-              <ul class="ActiveTags-list Tags">
-                {% for tag in tags %}
-                  <li>
-                    <form>
-                      {% if tag in activeTags %}
-                        {% for activeTag in activeTags %}
-                          {% if activeTag != tag %}
+    <div class="AddNote-wrapper">
+      <h1><a href="/">Notes</a></h1>
+      <div class="Tabs">
+        <ul class="Tabs-navigation">
+          <li class="Tabs-navigationItem"><button class="Tabs-button" aria-controls="tab-filter-search"{% if not note %} aria-expanded="true"{% endif %}>Filter</button></li>
+          <li class="Tabs-navigationItem"><button class="Tabs-button" aria-controls="tab-add-note"{% if note %} aria-expanded="true"{% endif %}>Add</button></li>
+        </ul>
+        <div class="Tab" id="tab-filter-search"{% if note %} hidden{% endif %}>
+          <div class="FilterSearch">
+            <form class="Search">
+              <label for="query">{{ 'search.label'|t }}</label>
+              <div class="Search-wrapper">
+                <input class="Search-input" type="search" name="query" id="query" value="{{ query }}">
+                <button class="Search-button Button Button--primary Button--iconOnly" type="submit">
+                  <span class="u-hiddenVisually">{{ 'search.submit'|t }}</span>
+                  <span aria-hidden="true">&rarr;</span>
+                </button>
+              </div>
+            </form>
+            {% if tags|length > 0 %}
+              <div class="ActiveTags FilterSearch-activeTags">
+                <p class="ActiveTags-label">{{ 'tags.label'|t }}</p>
+                <ul class="ActiveTags-list Tags">
+                  {% for tag in tags %}
+                    <li>
+                      <form>
+                        {% if tag in activeTags %}
+                          {% for activeTag in activeTags %}
+                            {% if activeTag != tag %}
+                              <input type="hidden" name="tags[]" value="{{ activeTag }}">
+                            {% endif %}
+                          {% endfor %}
+                          <button class="Button Button--secondary Button--small Button--delete" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
+                        {% else %}
+                          {% for activeTag in activeTags %}
                             <input type="hidden" name="tags[]" value="{{ activeTag }}">
-                          {% endif %}
-                        {% endfor %}
-                        <button class="Button Button--secondary Button--small Button--delete" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
-                      {% else %}
-                        {% for activeTag in activeTags %}
-                          <input type="hidden" name="tags[]" value="{{ activeTag }}">
-                        {% endfor %}
-                        <button class="Button Button--secondary Button--small" type="submit" name="tags[]" value="{{ tag }}" role="checkbox">{{ tag }}</button>
-                      {% endif %}
-                    </form>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-      <div class="Tab" id="tab-add-note"{% if not note %} hidden{% endif %}>
-        <form class="Add" action="/" method="post">
-          {% if note and note.id %}
-            <input type="hidden" name="id" value="{{ note.id }}">
-          {% endif %}
-          <div class="Input">
-            <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
-            <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not note.title %} aria-invalid="true"{% endif %} required>
-            <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
-          </div>
-          <div class="Input">
-            <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
-            <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
-          </div>
-          <div class="Input">
-            <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
-            <textarea class="Input-element" name="text" id="text">{{ note.text }}</textarea>
-          </div>
-          <div class="Input">
-            <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
-            <input class="Input-element" type="text" list="tags" id="tag">
-            <datalist id="tags">
-              {% for tag in tags %}
-                <option value="{{ tag }}">
-              {% endfor %}
-            </datalist>
-            <ul class="Add-tags Tags">
-              {% for tag in note.tags %}
-                <li class="Add-tag">
-                  <input type="hidden" name="tags[]" value="{{ tag }}">
-                  <button class="Button Button--secondary Button--small Button--delete" type="button">{{ tag }}</button>
-                </li>
-              {% endfor %}
-              <template id="tag-template">
-                <li class="Add-tag">
-                  <input type="hidden" name="tags[]">
-                  <button class="Button Button--secondary Button--small Button--delete" type="button"></button>
-                </li>
-              </template>
-            </ul>
-          </div>
-          <div class="Input">
-            <button class="Button Button--primary Button--large" type="submit"{% if note and note.id %} name="update"{% endif %}>{{ note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
-            {% if note and note.id %}
-              <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+                          {% endfor %}
+                          <button class="Button Button--secondary Button--small" type="submit" name="tags[]" value="{{ tag }}" role="checkbox">{{ tag }}</button>
+                        {% endif %}
+                      </form>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
             {% endif %}
           </div>
-        </form>
+        </div>
+        <div class="Tab" id="tab-add-note"{% if not note %} hidden{% endif %}>
+          <form class="Add" action="/" method="post">
+            {% if note and note.id %}
+              <input type="hidden" name="id" value="{{ note.id }}">
+            {% endif %}
+            <div class="Input">
+              <label class="Input-label" for="title">{{ 'note.attributes.title'|t }}</label>
+              <input class="Input-element" type="text" name="title" id="title" value="{{ note.title }}" aria-labelledby="title-msg"{% if note and not note.title %} aria-invalid="true"{% endif %} required>
+              <p class="ErrorMsg" id="title-msg">{{ 'note.validation.title'|t }}</p>
+            </div>
+            <div class="Input">
+              <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
+              <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
+            </div>
+            <div class="Input Add-text">
+              <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
+              <textarea class="Input-element Add-textInput" name="text" id="text">{{ note.text }}</textarea>
+            </div>
+            <div class="Input">
+              <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
+              <input class="Input-element" type="text" list="tags" id="tag">
+              <datalist id="tags">
+                {% for tag in tags %}
+                  <option value="{{ tag }}">
+                {% endfor %}
+              </datalist>
+              <ul class="Add-tags Tags">
+                {% for tag in note.tags %}
+                  <li class="Add-tag">
+                    <input type="hidden" name="tags[]" value="{{ tag }}">
+                    <button class="Button Button--secondary Button--small Button--delete" type="button">{{ tag }}</button>
+                  </li>
+                {% endfor %}
+                <template id="tag-template">
+                  <li class="Add-tag">
+                    <input type="hidden" name="tags[]">
+                    <button class="Button Button--secondary Button--small Button--delete" type="button"></button>
+                  </li>
+                </template>
+              </ul>
+            </div>
+            <div class="Input">
+              <button class="Button Button--primary Button--large" type="submit"{% if note and note.id %} name="update"{% endif %}>{{ note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t }}</button>
+              {% if note and note.id %}
+                <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+              {% endif %}
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </header>
