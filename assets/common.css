@@ -75,16 +75,3 @@ input:focus,
 textarea:focus {
   box-shadow: 0.2em 0.2em 0.25em rgba(0, 0, 0, 0.5) inset;
 }
-
-.u-flex-row {
-  display: flex;
-}
-
-.u-flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.u-flex-grow {
-  flex: 1;
-}

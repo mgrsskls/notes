@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="Tab" id="tab-add-note"{% if not note %} hidden{% endif %}>
-        <form class="Add u-flex-col u-flex-grow" action="/" method="post">
+        <form class="Add" action="/" method="post">
           {% if note and note.id %}
             <input type="hidden" name="id" value="{{ note.id }}">
           {% endif %}
@@ -66,9 +66,9 @@
             <label class="Input-label" for="url">{{ 'note.attributes.url'|t }}</label>
             <input class="Input-element" type="text" name="url" id="url" value="{{ note.url }}">
           </div>
-          <div class="Input u-flex-col u-flex-grow">
+          <div class="Input">
             <label class="Input-label" for="text">{{ 'note.attributes.text'|t }}</label>
-            <textarea class="Input-element u-flex-grow" name="text" id="text">{{ note.text }}</textarea>
+            <textarea class="Input-element" name="text" id="text">{{ note.text }}</textarea>
           </div>
           <div class="Input">
             <label class="Input-label" for="tag">{{ 'note.attributes.tags'|t }}</label>
