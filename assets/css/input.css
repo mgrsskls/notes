@@ -5,7 +5,7 @@
 }
 
 .Input-element {
-  margin: 0.5em 0 0;
+  margin: 1rem 0 0;
 }
 
 .Input-element[aria-invalid] {
