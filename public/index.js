@@ -26,14 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const mq = window.matchMedia("(min-width: 64.0625em)");
+  if (document.querySelector(".Notes")) {
+    const mq = window.matchMedia("(min-width: 64.0625em)");
 
-  if (mq.matches) {
-    new Masonry(".Notes", {
-      itemSelector: ".Notes-item",
-      percentPosition: true,
-      gutter: 30,
-    });
+    if (mq.matches) {
+      new Masonry(".Notes", {
+        itemSelector: ".Notes-item",
+        percentPosition: true,
+        gutter: 30,
+      });
+    }
   }
 
   Array.from(document.querySelectorAll(".Add-tags button")).forEach((button) =>
@@ -46,34 +48,36 @@ document.addEventListener("DOMContentLoaded", () => {
     )
   );
 
-  document.getElementById("tag").addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.target.value.trim().length > 0) {
-      e.preventDefault();
+  if (document.getElementById("tag")) {
+    document.getElementById("tag").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && e.target.value.trim().length > 0) {
+        e.preventDefault();
 
-      const tag = e.target.value;
+        const tag = e.target.value;
 
-      if (!tags.includes(tag)) {
-        const li = document
-          .getElementById("tag-template")
-          .content.cloneNode(true);
-        const button = li.querySelector("button");
+        if (!tags.includes(tag)) {
+          const li = document
+            .getElementById("tag-template")
+            .content.cloneNode(true);
+          const button = li.querySelector("button");
 
-        li.querySelector("input").value = tag;
-        button.textContent = tag;
-        button.addEventListener(
-          "click",
-          (evt) => {
-            evt.target.closest("li").remove();
-          },
-          { once: true }
-        );
+          li.querySelector("input").value = tag;
+          button.textContent = tag;
+          button.addEventListener(
+            "click",
+            (evt) => {
+              evt.target.closest("li").remove();
+            },
+            { once: true }
+          );
 
-        document.querySelector(".Add-tags").appendChild(li);
+          document.querySelector(".Add-tags").appendChild(li);
 
-        tags.push(tag);
+          tags.push(tag);
+        }
+
+        e.target.value = "";
       }
-
-      e.target.value = "";
-    }
-  });
+    });
+  }
 });

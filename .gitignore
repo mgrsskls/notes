@@ -1,4 +1,6 @@
 node_modules
+public/assets/*.css
+public/assets/*.css.map
 data.json
 .env
 update.sql

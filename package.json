@@ -9,7 +9,6 @@
     "node": "14.x"
   },
   "dependencies": {
-    "@factorial/stack-css": "^0.2.5",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -23,10 +22,11 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js"
+    "build": "factorial build --only css"
   },
   "devDependencies": {
     "@factorial/stack-core": "^0.2.5",
+    "@factorial/stack-css": "^0.2.5",
     "@factorial/stack-javascript": "^0.2.3"
   }
 }
