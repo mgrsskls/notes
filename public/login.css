@@ -1,3 +1,7 @@
+body {
+  flex-direction: column;
+}
+
 .Login {
   align-items: center;
   background: var(--color-Secondary);

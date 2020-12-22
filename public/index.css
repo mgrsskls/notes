@@ -4,7 +4,10 @@
 @import "./css/error-msg.css";
 @import "./css/filter-search.css";
 @import "./css/list.css";
+@import "./css/notes.css";
+@import "./css/note.css";
 @import "./css/search.css";
+@import "./css/tabs.css";
 @import "./css/tags.css";
 
 .u-hiddenVisually {
@@ -25,112 +28,18 @@ code {
   font-size: 0.875em;
 }
 
-.AddNote-toggle {
-  align-items: center;
+.AddNote {
   background: var(--color-Secondary);
-  border-radius: 50%;
-  bottom: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   color: var(--color-White);
-  display: flex;
-  height: 4.8rem;
-  justify-content: center;
-  position: fixed;
-  right: 3rem;
-  transition: 0.3s transform ease;
-  width: 4.8rem;
-  z-index: 3;
-}
-
-.AddNote-toggle[aria-expanded="true"] {
-  transform: rotate(45deg);
-}
-
-.AddNote-toggle svg {
-  fill: currentColor;
-  height: 50%;
-  width: 50%;
-}
-
-.AddNote-wrapper {
-  background: var(--color-Secondary);
-  bottom: 0;
-  color: var(--color-White);
-  left: 0;
-  max-width: 100%;
-  overflow-y: auto;
   padding: 2rem 3rem 3rem;
-  position: fixed;
-  top: 0;
-  transition: 0.3s transform ease;
-  width: 36rem;
-  z-index: 2;
+  z-index: 1;
 }
 
 .Content {
-  flex-grow: 1;
-}
-
-.AddNote-toggle[aria-expanded="false"] + .AddNote-wrapper {
-  transform: translateX(-100%);
-}
-
-.AddNote-toggle[aria-expanded="true"] + .AddNote-wrapper {
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
-  transform: translateX(0);
-}
-
-.Main {
-  background: var(--color-White);
-}
-
-table {
-  border-spacing: 0;
-  width: 100%;
-}
-
-th,
-td {
-  color: inherit;
-  padding: 1.5rem 1rem;
-}
-
-th {
   background: var(--color-Light);
-  padding-block: 2rem;
-  position: sticky;
-  top: 0;
-}
-
-th:first-child,
-td:first-child {
-  padding-left: 3rem;
-}
-
-th {
-  font-weight: bold;
-}
-
-th:not(:last-child) {
-  text-align: left;
-}
-
-td {
-  border-block-end: 0.2rem solid var(--color-Light);
-  vertical-align: top;
-}
-
-td:first-child {
-  font-weight: 600;
-}
-
-.Note-actionsList {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-}
-
-.Note-actionsList > * + * {
-  margin-inline-start: 1rem;
+  flex: 1;
+  padding: 3rem;
 }
 
 .RichText * + * {
@@ -151,4 +60,25 @@ td:first-child {
 .RichText em,
 .RichText i {
   font-style: italic;
+}
+
+@media (max-width: 48em) {
+  body {
+    flex-direction: column;
+  }
+
+  .AddNote {
+    position: relative;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .AddNote {
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+    flex: 0 0 32rem;
+    height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
 }

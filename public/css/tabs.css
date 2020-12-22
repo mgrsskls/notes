@@ -1,0 +1,31 @@
+.Tabs-navigation {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.Tabs-navigationItem {
+  align-items: center;
+  display: flex;
+}
+
+.Tabs-navigationItem + .Tabs-navigationItem::before {
+  background: var(--color-Light);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 0.2rem;
+  width: 0.2rem;
+}
+
+.Tabs-button {
+  padding: 1rem;
+}
+
+.Tabs-button[aria-expanded="true"] {
+  font-weight: 800;
+}
+
+.Tab {
+  margin-top: 3rem;
+}

@@ -6,6 +6,7 @@
     rgba(255, 255, 255, 0.1),
     rgba(255, 255, 255, 0)
   );
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
   box-shadow: 0.1em 0.1em 0.25em rgba(0, 0, 0, 0.25);
   font-weight: 600;
 }
@@ -26,7 +27,7 @@
   padding: 0.15em 0.5em;
 }
 
-.Button--large {
+.Button--large:not(.Button--iconOnly) {
   padding: 0.75em 2em;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .Button--secondary {
-  background-color: var(--color-Secondary);
+  background-color: #0d3e57;
 }
 
 .Button--tertiary {

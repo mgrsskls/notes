@@ -1,18 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
 
-  document
-    .querySelector(".AddNote-toggle")
-    .addEventListener("click", function onToggleClick(e) {
-      const toggle = e.target.closest("button");
+  Array.from(document.querySelectorAll(".Tabs-button")).forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const el = e.target;
+      const target = el.getAttribute("aria-controls");
 
-      if (toggle.getAttribute("aria-expanded") === "false") {
-        toggle.setAttribute("aria-expanded", "true");
-        document.getElementById("title").focus();
-      } else {
-        toggle.setAttribute("aria-expanded", "false");
-      }
+      Array.from(document.querySelectorAll(".Tab")).forEach((tab) => {
+        if (tab.id === target) {
+          tab.hidden = false;
+        } else {
+          tab.hidden = true;
+        }
+      });
+
+      Array.from(document.querySelectorAll(".Tabs-button")).forEach(
+        (tabButton) => {
+          if (el === tabButton) {
+            tabButton.setAttribute("aria-expanded", "true");
+          } else {
+            tabButton.removeAttribute("aria-expanded");
+          }
+        }
+      );
     });
+  });
+
+  const mq = window.matchMedia("(min-width: 64.0625em)");
+
+  if (mq.matches) {
+    new Masonry(".Notes", {
+      itemSelector: ".Notes-item",
+      percentPosition: true,
+      gutter: 30,
+    });
+  }
 
   Array.from(document.querySelectorAll(".Add-tags button")).forEach((button) =>
     button.addEventListener(

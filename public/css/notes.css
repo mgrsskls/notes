@@ -1,0 +1,29 @@
+/** @define Notes; */
+
+.Notes {
+  /* display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  padding: 3rem; */
+  position: relative;
+}
+
+.Notes-item {
+  margin-bottom: 3rem;
+}
+
+.Notes-item::marker {
+  color: var(--color-Light);
+}
+
+@media (min-width: 64.0625em) and (max-width: 72em) {
+  .Notes-item {
+    width: calc(100% / 2 - 3rem / 2);
+  }
+}
+
+@media (min-width: 72.0625em) {
+  .Notes-item {
+    width: calc(100% / 3 - 6rem / 3);
+  }
+}

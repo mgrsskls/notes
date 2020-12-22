@@ -33,8 +33,8 @@ const locales = {
       label: "Search",
       submit: "Submit",
     },
-    filter: {
-      label: "Filter",
+    tags: {
+      label: "Tags",
     },
   },
 };

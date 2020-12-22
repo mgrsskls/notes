@@ -8,6 +8,7 @@
 
 .Tag {
   border: 0.1rem solid;
+  display: inline-block;
   font-weight: 600;
-  padding: 0.15em 0.3em;
+  padding: 0.15em 0.5em;
 }

@@ -15,6 +15,7 @@ html {
   --color-Tertiary: #3e7e8e;
   --color-White: #fff;
   --color-Light: #ecf1f2;
+  --color-Grey: #777;
 
   font-size: 62.5%;
 }
@@ -22,7 +23,6 @@ html {
 body {
   background: var(--color-Secondary);
   display: flex;
-  flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   font-size: 1.6rem;
@@ -73,11 +73,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-  outline: 0.1rem solid var(--color-White);
-}
-
-button:focus {
-  outline: 0.2rem solid var(--color-White);
+  box-shadow: 0.2em 0.2em 0.25em rgba(0, 0, 0, 0.5) inset;
 }
 
 .u-flex-row {

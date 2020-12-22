@@ -1,0 +1,36 @@
+/** @define Note; */
+
+.Note {
+  background: var(--color-White);
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.Note-title {
+  font-weight: 800;
+}
+
+.Note-link {
+  color: var(--color-Secondary);
+  word-break: break-word;
+}
+
+.Note-text {
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+.Note-tags {
+  font-size: 0.875em;
+  margin-top: 2rem;
+}
+
+.Note-actionsList {
+  color: var(--color-Secondary);
+  display: flex;
+  font-size: 0.875em;
+  font-weight: 600;
+  grid-gap: 1rem;
+  list-style: none;
+  margin-top: 2rem;
+}
