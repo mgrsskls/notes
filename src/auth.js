@@ -47,7 +47,10 @@ module.exports = {
       }
     );
 
-    res.cookie("jwt", accessToken, { secure: true, httpOnly: true });
+    res.cookie("jwt", accessToken, {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+    });
   },
 
   /**
