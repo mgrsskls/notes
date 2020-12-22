@@ -64,6 +64,7 @@ code {
 
 @media (max-width: 48em) {
   body {
+    background: var(--color-Secondary);
     flex-direction: column;
   }
 
@@ -73,6 +74,10 @@ code {
 }
 
 @media (min-width: 48.0625em) {
+  body {
+    background: var(--color-Light);
+  }
+
   .AddNote {
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
     flex: 0 0 32rem;

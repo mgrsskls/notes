@@ -1,4 +1,5 @@
 body {
+  background: var(--color-Secondary);
   flex-direction: column;
 }
 
