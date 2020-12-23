@@ -2,6 +2,7 @@
 
 .Note {
   background: var(--color-White);
+  border-radius: 0.3rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
 }
@@ -17,7 +18,14 @@
 
 .Note-text {
   margin-top: 2rem;
+  position: relative;
+}
+
+.Note-text pre {
+  background: var(--color-Light-bright);
+  border: 0.1rem solid var(--color-Light-dark);
   overflow-x: auto;
+  padding: 1rem;
 }
 
 .Note-tags {

@@ -10,7 +10,7 @@
 }
 
 .Tabs-navigationItem + .Tabs-navigationItem::before {
-  background: var(--color-Light);
+  background: var(--color-Light-medium);
   border-radius: 50%;
   content: "";
   display: block;

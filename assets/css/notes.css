@@ -5,7 +5,7 @@
 }
 
 .Notes-item::marker {
-  color: var(--color-Light);
+  color: var(--color-Light-medium);
 }
 
 @media (min-width: 64.0625em) and (max-width: 72em) {

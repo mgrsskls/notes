@@ -40,12 +40,12 @@ code {
 }
 
 .Content {
-  background: var(--color-Light);
+  background: var(--color-Light-medium);
   flex: 1;
   padding: 3rem;
 }
 
-.RichText * + * {
+.RichText > * + *:not(.Note-copy) {
   margin-top: 1.5em;
 }
 
@@ -78,7 +78,7 @@ code {
 
 @media (min-width: 48.0625em) {
   body {
-    background: var(--color-Light);
+    background: var(--color-Light-medium);
   }
 
   .AddNote {

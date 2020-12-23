@@ -38,7 +38,7 @@
                               <input type="hidden" name="tags[]" value="{{ activeTag }}">
                             {% endif %}
                           {% endfor %}
-                          <button class="Button Button--secondary Button--small Button--delete" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
+                          <button class="Button Button--secondary Button--small" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
                         {% else %}
                           {% for activeTag in activeTags %}
                             <input type="hidden" name="tags[]" value="{{ activeTag }}">

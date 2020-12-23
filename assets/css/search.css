@@ -16,9 +16,11 @@
 }
 
 .Search-input {
+  border-radius: 0.3rem 0 0 0.3rem;
   width: calc(100% - 5rem);
 }
 
 .Search-button {
+  border-radius: 0 0.3rem 0.3rem 0;
   flex: 0 0 5rem;
 }

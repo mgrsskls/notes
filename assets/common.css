@@ -14,7 +14,9 @@ html {
   --color-Secondary: #062b3e;
   --color-Tertiary: #3e7e8e;
   --color-White: #fff;
-  --color-Light: #ecf1f2;
+  --color-Light-bright: #fbfcfc;
+  --color-Light-medium: #ecf1f2;
+  --color-Light-dark: #d1dddf;
   --color-Grey: #777;
 
   font-size: 62.5%;
