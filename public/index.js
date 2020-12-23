@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
 
+  Array.from(document.querySelectorAll("pre code")).forEach((code) => {
+    const template = document.getElementById("copy");
+    const button = template.content.firstElementChild.cloneNode(true);
+
+    button.addEventListener("click", (e) =>
+      copy(e.target.closest("button"), code)
+    );
+    code.closest(".Note-text").appendChild(button);
+  });
+
   Array.from(document.querySelectorAll(".Tabs-button")).forEach((button) => {
     button.addEventListener("click", (e) => {
       const el = e.target;
@@ -81,3 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+function copy(button, el) {
+  const textarea = document.createElement("textarea");
+  textarea.value = el.textContent;
+  textarea.classList.add("u-hiddenVisually");
+
+  document.body.appendChild(textarea);
+
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); /* For mobile devices */
+
+  document.execCommand("copy");
+
+  textarea.remove();
+
+  button.addEventListener("animationend", (e) =>
+    e.target.classList.remove("is-copied")
+  );
+
+  button.classList.add("is-copied");
+}

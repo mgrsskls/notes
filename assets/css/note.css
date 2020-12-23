@@ -13,6 +13,7 @@
 
 .Note-link {
   color: var(--color-Secondary);
+  display: inline-block;
   word-break: break-word;
 }
 
@@ -41,4 +42,52 @@
   grid-gap: 1rem;
   list-style: none;
   margin-top: 2rem;
+}
+
+.Note-copy {
+  align-items: center;
+  background: var(--color-Light-dark);
+  display: flex;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@keyframes fadeOut {
+  0% {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  10% {
+    max-width: 6ch;
+    opacity: 1;
+    padding-right: 0.5rem;
+  }
+
+  60% {
+    max-width: 6ch;
+    opacity: 1;
+    padding-right: 0.5rem;
+  }
+
+  100% {
+    max-width: 0;
+    opacity: 0;
+  }
+}
+
+.Note-copy.is-copied::before {
+  animation: fadeOut 2.5s ease forwards;
+  content: attr(data-label);
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1;
+  overflow: hidden;
+}
+
+.Note-copyIcon {
+  height: 1em;
+  width: 1em;
 }

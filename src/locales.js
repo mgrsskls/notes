@@ -28,6 +28,10 @@ const locales = {
         submit: "Update",
         cancel: "Cancel",
       },
+      copy: {
+        label: "Copy",
+        feedback: "Copied!",
+      },
     },
     search: {
       label: "Search",
