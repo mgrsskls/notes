@@ -1,21 +1,33 @@
 /** @define Notes; */
 
-.Notes-item {
-  margin-bottom: 3rem;
-}
-
 .Notes-item::marker {
   color: var(--color-Light-medium);
 }
 
-@media (min-width: 64.0625em) and (max-width: 72em) {
-  .Notes-item {
-    width: calc(100% / 2 - 3rem / 2);
+@supports (grid-template-rows: masonry) {
+  .Notes {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+    grid-template-rows: masonry;
+    padding: 0 0 3rem;
   }
 }
 
-@media (min-width: 72.0625em) {
+@supports not (grid-template-rows: masonry) {
   .Notes-item {
-    width: calc(100% / 3 - 6rem / 3);
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 64.0625em) and (max-width: 76em) {
+    .Notes-item {
+      width: calc(100% / 2 - 3rem / 2);
+    }
+  }
+
+  @media (min-width: 76.0625em) {
+    .Notes-item {
+      width: calc(100% / 3 - 6rem / 3);
+    }
   }
 }

@@ -39,12 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".Notes")) {
     const mq = window.matchMedia("(min-width: 64.0625em)");
 
-    if (mq.matches) {
-      new Masonry(".Notes", {
-        itemSelector: ".Notes-item",
-        percentPosition: true,
-        gutter: 30,
-      });
+    if (mq.matches && !window.CSS.supports("grid-template-rows", "masonry")) {
+      const script = document.createElement("script");
+      script.src = "/masonry.js";
+      script.onload = function () {
+        new Masonry(".Notes", {
+          itemSelector: ".Notes-item",
+          percentPosition: true,
+          gutter: 30,
+        });
+      };
+      document.head.appendChild(script);
     }
   }
 
