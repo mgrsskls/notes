@@ -42,7 +42,7 @@ code {
 .Content {
   background: var(--color-Light-medium);
   flex: 1;
-  padding: 3rem;
+  padding: 3rem 3rem 0;
 }
 
 .RichText > * + *:not(.Note-copy) {
