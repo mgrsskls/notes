@@ -1,0 +1,27 @@
+<div class="Input {{ class }}">
+  <label class="Input-label" for="{{ alias }}">{{ label }}</label>
+  {% if textarea %}
+    <textarea
+      class="Input-element"
+      name="{{ alias }}"
+      id="{{ alias }}"
+      {% if required %} required{% endif %}
+      {% if invalid %} aria-invalid="true"{% endif %}
+      {% if error %} aria-labelledby="{{ alias }}-msg"{% endif %}
+    >{{ value }}</textarea>
+  {% else %}
+    <input
+      class="Input-element"
+      type="{{ type|default("text") }}"
+      name="{{ alias }}"
+      id="{{ alias }}"
+      {% if value %} value="{{ value }}"{% endif %}
+      {% if list %} list="{{ list }}"{% endif %}
+      {% if required %} required{% endif %}
+      {% if invalid %} aria-invalid="true"{% endif %}
+      {% if error %} aria-labelledby="{{ alias }}-msg"{% endif %}
+    >
+  {% endif %}
+  {% if error %}<p class="Input-error" id="{{ alias }}-msg">{{ error }}</p>{% endif %}
+  {{ content }}
+</div>

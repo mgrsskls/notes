@@ -1,0 +1,74 @@
+<form class="Add" action="/" method="post">
+  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+  {% if note and note.id %}
+    <input type="hidden" name="id" value="{{ note.id }}">
+  {% endif %}
+
+  {% include "../../../common/input/input.twig" with {
+    alias: "title",
+    label: "note.attributes.title"|t,
+    value: note.title,
+    required: true,
+    invalid: note and not note.title,
+    error: "note.validation.title"|t,
+  } %}
+
+  {% include "../../../common/input/input.twig" with {
+    alias: "url",
+    label: "note.attributes.url"|t,
+    value: note.url,
+  } %}
+
+  {% include "../../../common/input/input.twig" with {
+    class: "Add-text",
+    alias: "text",
+    label: "note.attributes.text"|t,
+    value: note.text,
+    textarea: true,
+  } %}
+
+  {% set tags_content %}
+    <datalist id="tags">
+      {% for tag in tags %}
+        <option value="{{ tag }}">
+      {% endfor %}
+    </datalist>
+    <ul class="Add-tags Tags">
+      {% for tag in note.tags %}
+        <li class="Add-tag">
+          <input type="hidden" name="tags[]" value="{{ tag }}">
+          {% include "../../../common/button/button.twig" with {
+            label: tag,
+            modifiers: ["secondary", "small", "delete"]
+          } %}
+        </li>
+      {% endfor %}
+      <template id="tag-template">
+        <li class="Add-tag">
+          <input type="hidden" name="tags[]">
+          {% include "../../../common/button/button.twig" with {
+            modifiers: ["secondary", "small", "delete"]
+          } %}
+        </li>
+      </template>
+    </ul>
+  {% endset %}
+  {% include "../../../common/input/input.twig" with {
+    alias: "tag",
+    label: "note.attributes.tags"|t,
+    list: "tags",
+    content: tags_content
+  } %}
+
+  <div class="Input">
+    {% include "../../../common/button/button.twig" with {
+      label: note and note.id ? 'note.update.submit'|t : 'note.create.submit'|t,
+      modifiers: ["primary", "large"],
+      submit: true,
+      name: note and note.id ? "update" : null
+    } %}
+    {% if note and note.id %}
+      <a class="Add-cancel" href="/">{{ 'note.update.cancel'|t }}</a>
+    {% endif %}
+  </div>
+</form>

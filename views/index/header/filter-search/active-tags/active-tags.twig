@@ -1,0 +1,26 @@
+{% if tags|length > 0 %}
+  <div class="ActiveTags FilterSearch-activeTags">
+    <p class="ActiveTags-label">{{ 'tags.label'|t }}</p>
+    <ul class="ActiveTags-list Tags">
+      {% for tag in tags %}
+        <li>
+          <form>
+            {% if tag in activeTags %}
+              {% for activeTag in activeTags %}
+                {% if activeTag != tag %}
+                  <input type="hidden" name="tags[]" value="{{ activeTag }}">
+                {% endif %}
+              {% endfor %}
+              <button class="Button Button--secondary Button--small" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
+            {% else %}
+              {% for activeTag in activeTags %}
+                <input type="hidden" name="tags[]" value="{{ activeTag }}">
+              {% endfor %}
+              <button class="Button Button--secondary Button--small" type="submit" name="tags[]" value="{{ tag }}" role="checkbox">{{ tag }}</button>
+            {% endif %}
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

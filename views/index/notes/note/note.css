@@ -1,3 +1,6 @@
+@import "./rich-text/rich-text.css";
+@import "./tags/tags.css";
+
 /** @define Note; */
 
 .Note {
@@ -21,13 +24,6 @@
 .Note-text {
   margin-top: 2rem;
   position: relative;
-}
-
-.Note-text pre {
-  background: var(--color-Light-bright);
-  border: 0.1rem solid var(--color-Light-dark);
-  overflow-x: auto;
-  padding: 1rem;
 }
 
 .Note-tags {
@@ -91,4 +87,8 @@
 .Note-copyIcon {
   height: 1em;
   width: 1em;
+}
+
+.Note-delete {
+  text-decoration: underline;
 }

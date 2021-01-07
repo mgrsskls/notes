@@ -1,6 +1,6 @@
-@import "./css/reset.css";
-@import "./css/button.css";
-@import "./css/input.css";
+@import "./reset.css";
+@import "./common/button/button.css";
+@import "./common/input/input.css";
 
 @font-face {
   font-family: "Langar";
@@ -29,7 +29,6 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
   min-height: 100vh;
-
   min-height: -webkit-fill-available;
 }
 

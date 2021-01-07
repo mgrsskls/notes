@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const el = e.target;
       const target = el.getAttribute("aria-controls");
 
-      Array.from(document.querySelectorAll(".Tab")).forEach((tab) => {
+      Array.from(document.querySelectorAll(".Tabs-tab")).forEach((tab) => {
         if (tab.id === target) {
           tab.hidden = false;
         } else {

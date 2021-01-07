@@ -1,0 +1,20 @@
+{% extends "../html.twig" %}
+
+{% block head %}
+  <link rel="stylesheet" href="/assets/login.css">
+{% endblock %}
+
+{% block content %}
+  <div class="Login">
+    <h1>Notes</h1>
+    <form class="Login-form" action="/login" method="post">
+      {% include "../common/input/input.twig" with {
+        alias: "password",
+        label: "login.password"|t,
+        type: "password",
+        required: true
+      } %}
+      <button class="Input Button Button--primary Button--large" type="submit">{{ 'login.login'|t }}</button>
+    </form>
+  </div>
+{% endblock %}

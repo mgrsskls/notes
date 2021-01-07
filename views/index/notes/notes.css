@@ -1,3 +1,5 @@
+@import "./note/note.css";
+
 /** @define Notes; */
 
 .Notes-item::marker {

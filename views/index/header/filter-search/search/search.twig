@@ -1,0 +1,10 @@
+<form class="Search">
+  <label for="query">{{ 'search.label'|t }}</label>
+  <div class="Search-wrapper">
+    <input class="Search-input" type="search" name="query" id="query" value="{{ query }}">
+    <button class="Search-button Button Button--primary Button--iconOnly" type="submit">
+      <span class="u-hiddenVisually">{{ 'search.submit'|t }}</span>
+      <span aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+</form>

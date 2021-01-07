@@ -4,6 +4,10 @@ const locales = {
       login: "Login",
       password: "Password",
     },
+    index: {
+      filter: "Filter",
+      add: "Add",
+    },
     note: {
       toggle: "Add note",
       label: "note",

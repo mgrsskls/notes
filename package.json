@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^12.0.3",
     "node-env-file": "^0.1.8",
+    "nodemon": "^2.0.6",
     "pg": "^8.5.1",
     "twig": "^1.15.4"
   },
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@factorial/stack-core": "^0.2.5",
     "@factorial/stack-css": "^0.2.5",
-    "@factorial/stack-javascript": "^0.2.3"
+    "@factorial/stack-javascript": "^0.2.3",
+    "deepmerge": "^4.2.2"
   }
 }

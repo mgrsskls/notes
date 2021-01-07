@@ -4,6 +4,10 @@ module.exports = {
     require("@factorial/stack-css"),
   ],
   distFolder: "public/assets",
-  cssFiles: ["assets/common.css", "assets/index.css", "assets/login.css"],
+  cssFiles: [
+    "views/html.css",
+    "views/index/index.css",
+    "views/login/login.css",
+  ],
   rootFolder: "/",
 };

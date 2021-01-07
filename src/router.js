@@ -7,7 +7,7 @@ module.exports = function Router(app) {
       .then(async () => {
         const data = await index(req.query);
 
-        res.render("index", data);
+        res.render("index/index", data);
       })
       .catch(() => {
         res.redirect("/login");
@@ -28,7 +28,7 @@ module.exports = function Router(app) {
         }
 
         data = { ...(await index(req.query)), ...data };
-        res.render("index", data);
+        res.render("index/index", data);
       })
       .catch(() => {
         res.redirect("/login");
@@ -38,7 +38,7 @@ module.exports = function Router(app) {
   app.get("/login", (req, res) => {
     verify(req)
       .then(() => res.redirect("/"))
-      .catch(() => res.render("login"));
+      .catch(() => res.render("login/login"));
   });
 
   app.post("/login", (req, res) => {

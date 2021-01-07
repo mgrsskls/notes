@@ -1,0 +1,1 @@
+<button class="Button{% for modifier in modifiers %} Button--{{ modifier }}{% endfor %}" type="{{ submit ? "submit" : "button" }}"{% if name %} name="{{ name }}"{% endif %}>{{ label }}</button>

@@ -1,0 +1,9 @@
+{% if notes|length > 0 %}
+  <ul class="Notes">
+    {% for note in notes %}
+    <li class="Notes-item">
+      {% include "./note/note.twig" with note %}
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}

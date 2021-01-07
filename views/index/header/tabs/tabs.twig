@@ -1,0 +1,14 @@
+<div class="Tabs">
+  <ul class="Tabs-navigation">
+    {% for tab in tabs %}
+      <li class="Tabs-navigationItem">
+        <button class="Tabs-button" aria-controls="tab-{{ tab.alias }}"{% if tab.active %} aria-expanded="true"{% endif %}>{{ tab.label }}</button>
+      </li>
+    {% endfor %}
+  </ul>
+  {% for tab in tabs %}
+    <div class="Tabs-tab" id="tab-{{ tab.alias }}"{% if not tab.active %} hidden{% endif %}>
+      {{ tab.content }}
+    </div>
+  {% endfor %}
+</div>

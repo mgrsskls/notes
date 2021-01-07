@@ -1,3 +1,6 @@
+@import "./active-tags/active-tags.css";
+@import "./search/search.css";
+
 /** @define FilterSearch; */
 
 .FilterSearch {

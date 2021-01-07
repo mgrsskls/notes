@@ -1,14 +1,5 @@
-@import "./css/active-tags.css";
-@import "./css/add.css";
-@import "./css/delete-button.css";
-@import "./css/error-msg.css";
-@import "./css/filter-search.css";
-@import "./css/list.css";
-@import "./css/notes.css";
-@import "./css/note.css";
-@import "./css/search.css";
-@import "./css/tabs.css";
-@import "./css/tags.css";
+@import "./header/header.css";
+@import "./notes/notes.css";
 
 .u-hiddenVisually {
   border: 0;
@@ -28,41 +19,21 @@ code {
   font-size: 0.875em;
 }
 
-.AddNote {
+.IndexHeader {
   background: var(--color-Secondary);
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   color: var(--color-White);
   z-index: 1;
 }
 
-.AddNote-wrapper {
+.Header {
   padding: 2rem 3rem 3rem;
 }
 
-.Content {
+.IndexMain {
   background: var(--color-Light-medium);
   flex: 1;
   padding: 3rem 3rem 0;
-}
-
-.RichText > * + *:not(.Note-copy) {
-  margin-top: 1.5em;
-}
-
-.RichText h1,
-.RichText h2,
-.RichText h3,
-.RichText h4,
-.RichText h5,
-.RichText h6,
-.RichText strong,
-.RichText b {
-  font-weight: bold;
-}
-
-.RichText em,
-.RichText i {
-  font-style: italic;
 }
 
 @media (max-width: 48em) {
@@ -71,7 +42,7 @@ code {
     flex-direction: column;
   }
 
-  .AddNote {
+  .IndexHeader {
     position: relative;
   }
 }
@@ -81,7 +52,7 @@ code {
     background: var(--color-Light-medium);
   }
 
-  .AddNote {
+  .IndexHeader {
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
     flex: 0 0 32rem;
     height: 100vh;
@@ -90,25 +61,25 @@ code {
     top: 0;
   }
 
-  .AddNote,
-  .AddNote-wrapper,
+  .IndexHeader,
+  .Header,
   .Tabs,
-  .Tab:not([hidden]),
+  .Tabs-tab:not([hidden]),
   .Add,
   .Add-text {
     display: flex;
     flex-direction: column;
   }
 
-  .AddNote-wrapper,
+  .Header,
   .Tabs,
-  .Tab,
+  .Tabs-tab,
   .Add,
   .Add-text {
     flex-grow: 1;
   }
 
-  .Add-textInput {
+  .Add-text .Input-element {
     height: 100%;
   }
 }

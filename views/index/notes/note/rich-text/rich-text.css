@@ -1,0 +1,28 @@
+/** @define RichText; weak */
+
+.RichText > * + *:not(.Note-copy) {
+  margin-top: 1.5em;
+}
+
+.RichText h1,
+.RichText h2,
+.RichText h3,
+.RichText h4,
+.RichText h5,
+.RichText h6,
+.RichText strong,
+.RichText b {
+  font-weight: bold;
+}
+
+.RichText em,
+.RichText i {
+  font-style: italic;
+}
+
+.RichText pre {
+  background: var(--color-Light-bright);
+  border: 0.1rem solid var(--color-Light-dark);
+  overflow-x: auto;
+  padding: 1rem;
+}

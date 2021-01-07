@@ -1,3 +1,5 @@
+/** @define Tabs; */
+
 .Tabs-navigation {
   display: flex;
   justify-content: center;
@@ -26,6 +28,6 @@
   font-weight: 800;
 }
 
-.Tab {
+.Tabs-tab {
   margin-top: 3rem;
 }

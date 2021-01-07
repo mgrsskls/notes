@@ -13,3 +13,13 @@
   background: #ffc4c4;
   border-color: red;
 }
+
+.Input-error {
+  color: #ffc4c4;
+  display: none;
+  margin-block-start: 0.5rem;
+}
+
+.Input-element[aria-invalid] + .Input-error {
+  display: block;
+}
