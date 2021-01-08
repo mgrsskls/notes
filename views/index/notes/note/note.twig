@@ -21,6 +21,7 @@
     </li>
     <li>
       <form action="/" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         <input type="hidden" value="{{ id }}" name="id">
         <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
           {{ 'note.delete.submit'|t }}

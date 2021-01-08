@@ -1,4 +1,5 @@
 <form class="Search">
+  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
   <label for="query">{{ 'search.label'|t }}</label>
   <div class="Search-wrapper">
     <input class="Search-input" type="search" name="query" id="query" value="{{ query }}">

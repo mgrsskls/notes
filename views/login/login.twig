@@ -8,6 +8,7 @@
   <div class="Login">
     <h1>Notes</h1>
     <form class="Login-form" action="/login" method="post">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% include "../common/input/input.twig" with {
         alias: "password",
         label: "login.password"|t,

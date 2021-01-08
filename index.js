@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const csrf = require("csurf");
 const compression = require("compression");
 const dotProp = require("dot-prop");
 const RateLimit = require("express-rate-limit");
