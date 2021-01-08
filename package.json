@@ -14,6 +14,7 @@
     "cookie-parser": "^1.4.5",
     "dot-prop": "^6.0.1",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.3",
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^12.0.3",
     "node-env-file": "^0.1.8",
