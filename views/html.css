@@ -76,3 +76,7 @@ input:focus,
 textarea:focus {
   box-shadow: 0.2em 0.2em 0.25em rgba(0, 0, 0, 0.5) inset;
 }
+
+small {
+  font-size: 0.875em;
+}

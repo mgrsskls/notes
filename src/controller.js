@@ -27,6 +27,7 @@ module.exports = {
         url: note.url,
         text: note.text,
         tags: note.tags,
+        createdAt: note.created_at,
       },
     };
   },
@@ -52,6 +53,7 @@ module.exports = {
         url: note.url,
         text: note.text,
         tags,
+        created_at: note.created_at,
       };
     } catch (error) {
       return {
@@ -225,18 +227,21 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
         }
       }),
     ]).then(([allNotes, allTags]) => {
-      let notes = Object.values(allNotes).map(({ id, title, url, text }) => {
-        return {
-          id,
-          title,
-          url,
-          text: convertMarkdown ? convertMarkdownToHtml(text) : text,
-          tags: allTags
-            .filter(({ note_id: nodeId }) => nodeId === id)
-            .map(({ tag }) => tag)
-            .sort((a, b) => a - b),
-        };
-      });
+      let notes = Object.values(allNotes).map(
+        ({ id, title, url, text, created_at: createdAt }) => {
+          return {
+            id,
+            title,
+            url,
+            text: convertMarkdown ? convertMarkdownToHtml(text) : text,
+            tags: allTags
+              .filter(({ note_id: nodeId }) => nodeId === id)
+              .map(({ tag }) => tag)
+              .sort((a, b) => a - b),
+            created_at: createdAt,
+          };
+        }
+      );
 
       if (activeTags.length > 0) {
         notes = notes.filter((note) =>

@@ -9,9 +9,11 @@
   border: 0.1rem solid rgba(255, 255, 255, 0.2);
   border-radius: 0.3rem;
   box-shadow: 0.1em 0.1em 0.25em rgba(0, 0, 0, 0.25);
+  display: block;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
+  width: fit-content;
 }
 
 .Button:active {

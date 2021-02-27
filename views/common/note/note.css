@@ -30,17 +30,6 @@
   margin-top: 2rem;
 }
 
-.Note-actionsList {
-  color: var(--color-Secondary);
-  display: flex;
-  font-size: 0.875em;
-  font-weight: 600;
-  grid-gap: 1rem;
-  list-style: none;
-  margin-top: auto;
-  padding-top: 2rem;
-}
-
 .Note-copy {
   align-items: center;
   background: var(--color-Light-dark);
@@ -91,4 +80,30 @@
 
 .Note-delete {
   text-decoration: underline;
+}
+
+.Note-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.Note-actionsList {
+  color: var(--color-Secondary);
+  display: flex;
+  font-size: 0.875em;
+  font-weight: 600;
+  grid-gap: 1rem;
+  list-style: none;
+}
+
+:not(.Note-footer) > .Note-actionsList {
+  padding-top: 2rem;
+}
+
+.Note-createdAt {
+  color: var(--color-Grey);
 }

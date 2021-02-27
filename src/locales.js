@@ -39,6 +39,7 @@ const locales = {
         label: "Copy",
         feedback: "Copied!",
       },
+      createdAt: "Created at",
     },
     search: {
       label: "Search",

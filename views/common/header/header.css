@@ -9,3 +9,7 @@
   flex-direction: column;
   gap: 3rem;
 }
+
+.Header-new {
+  margin-top: 3rem;
+}

@@ -4,9 +4,11 @@
     {% include "./search/search.twig" with {query: query} only %}
     {% include "./active-tags/active-tags.twig" with {tags: tags, activeTags: activeTags} only %}
   </div>
-  {% include "../button/button.twig" with {
-    url: "/notes/new",
-    label: "Add note",
-    modifiers: ["large", "primary"],
-  } %}
+  <div class="Header-new">
+    {% include "../button/button.twig" with {
+      url: "/notes/new",
+      label: "Add note",
+      modifiers: ["large", "primary"],
+    } %}
+  </div>
 </div>
