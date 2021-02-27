@@ -1,0 +1,10 @@
+{% include "../common/form/form.twig" with {
+  csrfToken: csrfToken,
+  note: note,
+  tags: tags,
+  activeTags: activeTags,
+  submit: {
+    url: "/notes/" ~ note.id ~ "/edit",
+    label: "note.update.submit"|t
+  }
+} only %}

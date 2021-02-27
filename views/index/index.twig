@@ -1,15 +1,24 @@
 {% extends "../html.twig" %}
 
 {% block head %}
+  <link rel="stylesheet" href="/assets/layout.css">
   <link rel="stylesheet" href="/assets/index.css">
 {% endblock %}
 
 {% block content %}
   <header class="IndexHeader">
-    {% include "./header/header.twig" with {note: note} %}
+    {% include "../common/header/header.twig" with {tags: tags, activeTags: activeTags} only %}
   </header>
   <main class="IndexMain">
-    {% include "./notes/notes.twig" %}
+    {% if notes|length > 0 %}
+      <ul class="Index">
+        {% for note in notes %}
+        <li class="Index-item">
+          {% include "../common/note/note.twig" with note %}
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </main>
 
   <template id="copy">

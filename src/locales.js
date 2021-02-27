@@ -27,6 +27,9 @@ const locales = {
         confirm: "Do you really want to delete this note?",
         submit: "Delete",
       },
+      show: {
+        link: "View",
+      },
       update: {
         link: "Edit",
         submit: "Update",

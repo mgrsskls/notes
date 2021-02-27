@@ -4,7 +4,7 @@
     <ul class="ActiveTags-list Tags">
       {% for tag in tags %}
         <li>
-          <form>
+          <form action="/">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             {% if tag in activeTags %}
               {% for activeTag in activeTags %}

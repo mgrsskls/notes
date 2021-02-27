@@ -26,6 +26,16 @@ module.exports = {
     );
   },
 
+  getNote: async (noteId, cb) => {
+    client.query(
+      "SELECT * FROM notes WHERE id=$1;",
+      [noteId],
+      (error, response) => {
+        cb(error, response);
+      }
+    );
+  },
+
   getTags: (cb) => {
     client.query("SELECT * FROM tags ORDER BY tag", [], (error, response) => {
       cb(error, response);

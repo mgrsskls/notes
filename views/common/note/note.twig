@@ -7,7 +7,7 @@
   {% endif %}
   {% if text %}
   <div class="Note-text">
-    {% include "./rich-text/rich-text.twig" with {text: text} %}
+    {% include "../rich-text/rich-text.twig" with {text: text} %}
   </div>
   {% endif %}
   {% if tags|length > 0 %}
@@ -17,12 +17,14 @@
   {% endif %}
   <ul class="Note-actionsList">
     <li>
-      <a href="/?edit={{ id }}">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
+      <a href="/notes/{{ id }}">{{ 'note.show.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
     </li>
     <li>
-      <form action="/" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
+      <a href="/notes/{{ id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
+    </li>
+    <li>
+      <form action="/notes/{{ id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-        <input type="hidden" value="{{ id }}" name="id">
         <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
           {{ 'note.delete.submit'|t }}
         </button>

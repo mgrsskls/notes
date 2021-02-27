@@ -1,13 +1,13 @@
-/** @define Add; */
+/** @define Form; */
 
-.Add-tags {
+.Form-tags {
   margin: 1rem 0 0;
 }
 
-.Add-actions {
+.Form-actions {
   text-align: center;
 }
 
-.Add-cancel {
+.Form-cancel {
   margin-inline-start: 1rem;
 }

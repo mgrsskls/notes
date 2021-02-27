@@ -1,9 +1,5 @@
 /** @define Input; */
 
-.Input + .Input {
-  margin-top: 2rem;
-}
-
 .Input-element {
   border-radius: 0.3rem;
   margin: 1rem 0 0;

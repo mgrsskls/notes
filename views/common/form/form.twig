@@ -1,0 +1,92 @@
+{% extends "../../html.twig" %}
+
+{% block head %}
+  <link rel="stylesheet" href="/assets/layout.css">
+{% endblock %}
+
+{% block content %}
+  <header class="IndexHeader">
+    {% include "../header/header.twig" with {tags: tags, activeTags: activeTags} only %}
+  </header>
+  <main class="IndexMain u-flex u-flex-col">
+    <div class="Note u-flex-grow u-flex u-flex-col">
+      <form class="Form u-flex u-flex-col u-flex-grow" action="{{ submit.url }}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+        <row>
+          {% include "../input/input.twig" with {
+            alias: "title",
+            label: "note.attributes.title"|t,
+            value: note.title,
+            required: true,
+            invalid: note and not note.title,
+            error: "note.validation.title"|t,
+          } %}
+          {% include "../input/input.twig" with {
+            alias: "url",
+            label: "note.attributes.url"|t,
+            value: note.url,
+          } %}
+        </row>
+
+        <row class="u-flex u-flex-col u-flex-grow">
+          {% include "../input/input.twig" with {
+            class: "u-flex u-flex-col u-flex-grow",
+            alias: "text",
+            label: "note.attributes.text"|t,
+            value: note.text,
+            textarea: true,
+          } %}
+        </row>
+
+        <row>
+          {% set tags_content %}
+            <datalist id="tags">
+              {% for tag in tags %}
+                <option value="{{ tag }}">
+              {% endfor %}
+            </datalist>
+            <ul class="Form-tags Tags">
+              {% for tag in note.tags %}
+                <li class="Form-tag">
+                  <input type="hidden" name="tags[]" value="{{ tag }}">
+                  {% include "../button/button.twig" with {
+                    label: tag,
+                    modifiers: ["secondary", "small", "delete"]
+                  } %}
+                </li>
+              {% endfor %}
+              <template id="tag-template">
+                <li class="Form-tag">
+                  <input type="hidden" name="tags[]">
+                  {% include "../button/button.twig" with {
+                    modifiers: ["secondary", "small", "delete"]
+                  } %}
+                </li>
+              </template>
+            </ul>
+          {% endset %}
+          {% include "../input/input.twig" with {
+            alias: "tag",
+            label: "note.attributes.tags"|t,
+            list: "tags",
+            content: tags_content
+          } %}
+        </row>
+
+        <row>
+          <div class="Input">
+            {% include "../button/button.twig" with {
+              label: submit.label,
+              modifiers: ["primary", "large"],
+              submit: true,
+            } %}
+            {% if note and note.id %}
+              <a class="Form-cancel" href="/notes/{{note.id}}">{{ 'note.update.cancel'|t }}</a>
+            {% endif %}
+          </div>
+        </row>
+      </form>
+    </div>
+  </main>
+{% endblock %}

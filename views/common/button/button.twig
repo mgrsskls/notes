@@ -1,1 +1,5 @@
-<button class="Button{% for modifier in modifiers %} Button--{{ modifier }}{% endfor %}" type="{{ submit ? "submit" : "button" }}"{% if name %} name="{{ name }}"{% endif %}>{{ label }}</button>
+{% if url %}
+  <a href="{{ url }}" class="Button{% for modifier in modifiers %} Button--{{ modifier }}{% endfor %}">{{ label }}</a>
+{% else %}
+  <button class="Button{% for modifier in modifiers %} Button--{{ modifier }}{% endfor %}" type="{{ submit ? "submit" : "button" }}"{% if name %} name="{{ name }}"{% endif %}>{{ label }}</button>
+{% endif %}

@@ -1,0 +1,11 @@
+@import "./active-tags/active-tags.css";
+@import "./search/search.css";
+
+/** @define Header; */
+
+.Header-content {
+  color: var(--color-White);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}

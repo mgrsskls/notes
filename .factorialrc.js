@@ -3,11 +3,7 @@ module.exports = {
     require("@factorial/stack-javascript"),
     require("@factorial/stack-css"),
   ],
+  rootFolder: "views",
   distFolder: "public/assets",
-  cssFiles: [
-    "views/html.css",
-    "views/index/index.css",
-    "views/login/login.css",
-  ],
-  rootFolder: "/",
+  cssFiles: ["html.css", "layout.css", "login/login.css", "index/index.css"],
 };

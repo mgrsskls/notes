@@ -1,4 +1,3 @@
-@import "./rich-text/rich-text.css";
 @import "./tags/tags.css";
 
 /** @define Note; */
@@ -38,7 +37,8 @@
   font-weight: 600;
   grid-gap: 1rem;
   list-style: none;
-  margin-top: 2rem;
+  margin-top: auto;
+  padding-top: 2rem;
 }
 
 .Note-copy {

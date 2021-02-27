@@ -1,0 +1,9 @@
+{% include "../common/form/form.twig" with {
+  csrfToken: csrfToken,
+  tags: tags,
+  activeTags: activeTags,
+  submit: {
+    url: "/notes/new",
+    label: "note.create.submit"|t
+  }
+} only %}

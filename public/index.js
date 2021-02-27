@@ -11,40 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     code.closest(".Note-text").appendChild(button);
   });
 
-  Array.from(document.querySelectorAll(".Tabs-button")).forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const el = e.target;
-      const target = el.getAttribute("aria-controls");
-
-      Array.from(document.querySelectorAll(".Tabs-tab")).forEach((tab) => {
-        if (tab.id === target) {
-          tab.hidden = false;
-        } else {
-          tab.hidden = true;
-        }
-      });
-
-      Array.from(document.querySelectorAll(".Tabs-button")).forEach(
-        (tabButton) => {
-          if (el === tabButton) {
-            tabButton.setAttribute("aria-expanded", "true");
-          } else {
-            tabButton.removeAttribute("aria-expanded");
-          }
-        }
-      );
-    });
-  });
-
-  if (document.querySelector(".Notes")) {
+  if (document.querySelector(".Index")) {
     const mq = window.matchMedia("(min-width: 64.0625em)");
 
     if (mq.matches && !window.CSS.supports("grid-template-rows", "masonry")) {
       const script = document.createElement("script");
       script.src = "/masonry.js";
       script.onload = function () {
-        new Masonry(".Notes", {
-          itemSelector: ".Notes-item",
+        new Masonry(".Index", {
+          itemSelector: ".Index-item",
           percentPosition: true,
           gutter: 30,
         });
@@ -53,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  Array.from(document.querySelectorAll(".Add-tags button")).forEach((button) =>
+  Array.from(document.querySelectorAll(".Form-tags button")).forEach((button) =>
     button.addEventListener(
       "click",
       (evt) => {
@@ -86,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { once: true }
           );
 
-          document.querySelector(".Add-tags").appendChild(li);
+          document.querySelector(".Forms-tags").appendChild(li);
 
           tags.push(tag);
         }
