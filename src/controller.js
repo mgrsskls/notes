@@ -1,6 +1,8 @@
 const Md = require("markdown-it");
 const db = require("./db");
 
+const md = new Md();
+
 const cache = {
   notes: {},
   tags: [],
@@ -19,14 +21,12 @@ module.exports = {
 
     return {
       ...notesAndTags,
-      ...{
-        note: {
-          id: parseInt(note.id, 10),
-          title: note.title,
-          url: note.url,
-          text: note.text,
-          tags: note.tags,
-        },
+      note: {
+        id: parseInt(note.id, 10),
+        title: note.title,
+        url: note.url,
+        text: note.text,
+        tags: note.tags,
       },
     };
   },
@@ -36,9 +36,7 @@ module.exports = {
 
     return {
       ...notesAndTags,
-      ...{
-        note: notesAndTags.notes.find((note) => note.id === parseInt(id, 10)),
-      },
+      note: notesAndTags.notes.find((note) => note.id === parseInt(id, 10)),
     };
   },
 
@@ -262,8 +260,6 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
  */
 function convertMarkdownToHtml(markdown) {
   if (!markdown) return null;
-
-  const md = new Md();
 
   return md.render(markdown);
 }
