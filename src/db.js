@@ -14,10 +14,10 @@ module.exports = {
     client.query(
       query
         ? `
-        SELECT * FROM notes WHERE title ILIKE $1 OR url ILIKE $1 OR text ILIKE $1 ORDER BY created_at DESC;
+        SELECT * FROM notes WHERE title ILIKE $1 OR url ILIKE $1 OR text ILIKE $1 ORDER BY id DESC;
         `
         : `
-        SELECT * FROM notes ORDER BY created_at DESC;
+        SELECT * FROM notes ORDER BY id DESC;
       `,
       query ? [`%${query}%`] : [],
       (error, response) => {
@@ -44,7 +44,7 @@ module.exports = {
 
   createNote: (title, url, text) => {
     return client.query(
-      "INSERT INTO notes (title, url, text) VALUES ($1, $2, $3) RETURNING id;",
+      "INSERT INTO notes (title, url, text) VALUES ($1, $2, $3) RETURNING id, title, url, text;",
       [
         title === "" ? null : title,
         url === "" ? null : url,

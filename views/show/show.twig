@@ -23,7 +23,7 @@
       {% endif %}
       {% if note.tags|length > 0 %}
       <div class="Note-tags">
-        {% include "./tags/tags.twig" with {tags: note.tags} %}
+        {% include "../common/note/tags/tags.twig" with {tags: note.tags} %}
       </div>
       {% endif %}
       <ul class="Note-actionsList">

@@ -1,27 +1,45 @@
 const Md = require("markdown-it");
 const db = require("./db");
 
+const cache = {
+  notes: {},
+  tags: [],
+};
+
 module.exports = {
   async index({ tags: activeTags = [], query }) {
-    return getNotesAndTags({ activeTags, query });
+    return getNotesAndTags({ activeTags, query }, true);
   },
 
-  show(id, { tags: activeTags = [], query }) {
-    return Promise.all([
-      getNotesAndTags({ activeTags, query }),
-      getNote(id, true),
-    ]).then((res) => {
-      return { ...res[0], ...{ note: res[1] } };
-    });
+  async show(id, { tags: activeTags = [], query }) {
+    const notesAndTags = await getNotesAndTags({ activeTags, query }, true);
+    const note = notesAndTags.notes.find(
+      (result) => result.id === parseInt(id, 10)
+    );
+
+    return {
+      ...notesAndTags,
+      ...{
+        note: {
+          id: parseInt(note.id, 10),
+          title: note.title,
+          url: note.url,
+          text: note.text,
+          tags: note.tags,
+        },
+      },
+    };
   },
 
-  edit(id, { tags: activeTags = [], query }) {
-    return Promise.all([
-      getNotesAndTags({ activeTags, query }),
-      getNote(id, false),
-    ]).then((res) => {
-      return { ...res[0], ...{ note: res[1] } };
-    });
+  async edit(id, { tags: activeTags = [], query }) {
+    const notesAndTags = await getNotesAndTags({ activeTags, query }, false);
+
+    return {
+      ...notesAndTags,
+      ...{
+        note: notesAndTags.notes.find((note) => note.id === parseInt(id, 10)),
+      },
+    };
   },
 
   async create({ title, url, text, tags }) {
@@ -29,6 +47,14 @@ module.exports = {
 
     try {
       result = await db.createNote(title, url, text);
+      const [note] = result.rows;
+      cache.notes[note.id] = {
+        id: parseInt(note.id, 10),
+        title: note.title,
+        url: note.url,
+        text: note.text,
+        tags,
+      };
     } catch (error) {
       return {
         error: error.toString(),
@@ -46,6 +72,14 @@ module.exports = {
     ) {
       try {
         await db.createTags(result.rows[0].id, tags);
+
+        tags.forEach((tag) => {
+          cache.tags.push({
+            note_id: result.rows[0].id,
+            tag,
+          });
+        });
+
         return { id: result.rows[0].id };
       } catch (error) {
         return {
@@ -59,25 +93,33 @@ module.exports = {
   },
 
   async destroy(id) {
+    const parsedId = parseInt(id, 10);
+
     return new Promise((resolve) => {
       Promise.all([
         new Promise((res) => {
           db.deleteTags(id, (error) => {
             if (error) throw error;
+            delete cache.notes[parsedId];
             res();
           });
         }),
         new Promise((res) => {
           db.deleteNote(id, (error) => {
             if (error) throw error;
+            cache.tags = cache.tags.filter((tag) => tag.note_id !== parsedId);
             res();
           });
         }),
-      ]).then(resolve);
+      ]).then(() => {
+        resolve();
+      });
     });
   },
 
   async update(id, { title, url, text, tags }) {
+    const parsedId = parseInt(id, 10);
+
     return new Promise((resolve) => {
       const promises = [
         new Promise((res) => {
@@ -88,6 +130,13 @@ module.exports = {
                 note: { title, url, text, tags },
               });
             } else {
+              cache.notes[id] = {
+                id: parsedId,
+                title,
+                url,
+                text,
+                tags,
+              };
               res();
             }
           });
@@ -99,31 +148,47 @@ module.exports = {
                 error: error.toString(),
                 note: { title, url, text, tags },
               });
-            } else if (tags && tags.length > 0) {
-              const params = [];
-
-              tags.forEach((tag) => {
-                params.push(id);
-                params.push(tag);
-              });
-
-              try {
-                await db.createTags(id, tags);
-                res();
-              } catch (err) {
-                res({
-                  error: err.toString(),
-                  note: { title, url, text, tags },
-                });
-              }
             } else {
-              res();
+              cache.tags = cache.tags.filter((tag) => tag.note_id !== parsedId);
+              cache.notes[id].tags = [];
+
+              if (tags && tags.length > 0) {
+                const params = [];
+
+                tags.forEach((tag) => {
+                  params.push(id);
+                  params.push(tag);
+                });
+
+                try {
+                  await db.createTags(id, tags);
+                  cache.tags = [
+                    ...cache.tags,
+                    ...tags.map((tag) => ({ tag, note_id: parsedId })),
+                  ];
+                  cache.notes[id].tags = tags.map((tag) => ({
+                    tag,
+                    note_id: parsedId,
+                  }));
+
+                  res();
+                } catch (err) {
+                  res({
+                    error: err.toString(),
+                    note: { title, url, text, tags },
+                  });
+                }
+              } else {
+                res();
+              }
             }
           });
         }),
       ];
 
-      Promise.all(promises).then(resolve);
+      Promise.all(promises).then(() => {
+        resolve();
+      });
     });
   },
 };
@@ -132,33 +197,46 @@ module.exports = {
  * @param {object} obj
  * @param {Array} obj.activeTags
  * @param {string} obj.query
+ * @param {boolean} convertMarkdown
  * @returns {Promise}
  */
-function getNotesAndTags({ activeTags, query }) {
+function getNotesAndTags({ activeTags, query }, convertMarkdown) {
   return new Promise((resolveIndex) => {
     Promise.all([
       new Promise((resolve) => {
-        db.getNotes(query, (error, res) => {
-          resolve(res);
-        });
+        if (Object.keys(cache.notes).length > 1 && !query) {
+          resolve(cache.notes);
+        } else {
+          db.getNotes(query, (error, { rows }) => {
+            cache.notes = {};
+            rows.forEach((note) => {
+              cache.notes[note.id] = note;
+            });
+            resolve(cache.notes);
+          });
+        }
       }),
       new Promise((resolve) => {
-        db.getTags((error, res) => {
-          resolve(res);
-        });
+        if (cache.tags.length > 0) {
+          resolve(cache.tags);
+        } else {
+          db.getTags((error, { rows }) => {
+            cache.tags = rows;
+            resolve(rows);
+          });
+        }
       }),
-    ]).then((res) => {
-      const allTags = res[1].rows;
-      let notes = res[0].rows.map(({ id, title, url, text }) => {
+    ]).then(([allNotes, allTags]) => {
+      let notes = Object.values(allNotes).map(({ id, title, url, text }) => {
         return {
           id,
           title,
           url,
-          text,
+          text: convertMarkdown ? convertMarkdownToHtml(text) : text,
           tags: allTags
             .filter(({ note_id: nodeId }) => nodeId === id)
             .map(({ tag }) => tag)
-            .sort(),
+            .sort((a, b) => a - b),
         };
       });
 
@@ -169,42 +247,11 @@ function getNotesAndTags({ activeTags, query }) {
       }
 
       resolveIndex({
-        notes: notes.map(({ id, title, url, text, tags }) => ({
-          id,
-          title,
-          url,
-          text: convertMarkdownToHtml(text),
-          tags,
-        })),
+        notes: notes.sort((a, b) => b.id - a.id),
         tags: [...new Set(allTags.map((tag) => tag.tag))],
         activeTags,
         query,
       });
-    });
-  });
-}
-
-/**
- * @param {number} id
- * @param {boolean} convertMarkdown
- * @returns {Promise}
- */
-function getNote(id, convertMarkdown) {
-  return new Promise((resolve) => {
-    db.getNote(id, (error, res) => {
-      const note = res.rows[0];
-
-      resolve(
-        convertMarkdown
-          ? {
-              id: note.id,
-              title: note.title,
-              url: note.url,
-              text: convertMarkdownToHtml(note.text),
-              tags: note.tags,
-            }
-          : note
-      );
     });
   });
 }

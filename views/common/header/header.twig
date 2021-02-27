@@ -1,7 +1,7 @@
 <div class="Header u-flex u-flex-col">
   <h1><a href="/">Notes</a></h1>
   <div class="Header-content u-flex-grow">
-    {% include "./search/search.twig" with {query: query, csrfToken: csrfToken} only %}
+    {% include "./search/search.twig" with {query: query} only %}
     {% include "./active-tags/active-tags.twig" with {tags: tags, activeTags: activeTags} only %}
   </div>
   {% include "../button/button.twig" with {

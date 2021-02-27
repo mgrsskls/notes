@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { once: true }
           );
 
-          document.querySelector(".Forms-tags").appendChild(li);
+          document.querySelector(".Form-tags").appendChild(li);
 
           tags.push(tag);
         }
