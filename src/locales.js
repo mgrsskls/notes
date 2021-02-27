@@ -33,7 +33,6 @@ const locales = {
       update: {
         link: "Edit",
         submit: "Update",
-        cancel: "Cancel",
       },
       copy: {
         label: "Copy",

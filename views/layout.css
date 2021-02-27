@@ -60,7 +60,7 @@ code {
 }
 
 .IndexMain {
-  background: var(--color-Light-medium);
+  background: var(--color-Content-bg);
   flex: 1;
   padding: 3rem;
 }

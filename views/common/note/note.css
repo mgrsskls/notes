@@ -3,7 +3,7 @@
 /** @define Note; */
 
 .Note {
-  background: var(--color-White);
+  background: var(--color-Card-bg);
   border-radius: 0.3rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -15,7 +15,7 @@
 }
 
 .Note-link {
-  color: var(--color-Secondary);
+  color: var(--color-Note-link);
   display: inline-block;
   word-break: break-word;
 }
@@ -32,7 +32,7 @@
 
 .Note-copy {
   align-items: center;
-  background: var(--color-Light-dark);
+  background: var(--color-RichText-border);
   display: flex;
   padding: 0.5rem;
   position: absolute;
@@ -74,6 +74,7 @@
 }
 
 .Note-copyIcon {
+  fill: currentColor;
   height: 1em;
   width: 1em;
 }
@@ -92,7 +93,7 @@
 }
 
 .Note-actionsList {
-  color: var(--color-Secondary);
+  color: var(--color-Note-actionsList);
   display: flex;
   font-size: 0.875em;
   font-weight: 600;
@@ -105,5 +106,5 @@
 }
 
 .Note-createdAt {
-  color: var(--color-Grey);
+  color: var(--color-Note-createdAt);
 }

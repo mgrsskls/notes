@@ -11,7 +11,7 @@
 
 html {
   --color-Primary: #9f2050;
-  --color-Secondary: #062b3e;
+  --color-Secondary: hsl(200, 82%, 12.5%);
   --color-Tertiary: #3e7e8e;
   --color-White: #fff;
   --color-Light-bright: #fbfcfc;
@@ -19,10 +19,37 @@ html {
   --color-Light-dark: #d1dddf;
   --color-Grey: #777;
 
+  --color-Default: #000;
+  --color-Content-bg: var(--color-Light-medium);
+  --color-Card-bg: var(--color-White);
+  --color-Card-text: var(--color-White);
+  --color-Note-link: var(--color-Secondary);
+  --color-Note-actionsList: var(--color-Secondary);
+  --color-Note-createdAt: var(--color-Grey);
+  --color-RichText-bg: var(--color-Light-bright);
+  --color-RichText-border: var(--color-Light-dark);
+
   font-size: 62.5%;
 }
 
+@media (prefers-color-scheme: dark) {
+  html {
+    --color-Dark: hsl(200, 82%, 10%);
+    --color-Light: hsl(200, 35%, 70%);
+
+    --color-Default: var(--color-White);
+    --color-Content-bg: var(--color-Dark);
+    --color-Card-bg: hsl(200, 82%, 17.5%);
+    --color-Note-link: var(--color-Light);
+    --color-Note-actionsList: var(--color-Light);
+    --color-Note-createdAt: var(--color-Light);
+    --color-RichText-bg: hsl(200, 82%, 15%);
+    --color-RichText-border: var(--color-Dark);
+  }
+}
+
 body {
+  color: var(--color-Default);
   display: flex;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;

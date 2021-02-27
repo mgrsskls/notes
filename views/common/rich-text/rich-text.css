@@ -21,8 +21,8 @@
 }
 
 .RichText pre {
-  background: var(--color-Light-bright);
-  border: 0.1rem solid var(--color-Light-dark);
+  background: var(--color-RichText-bg);
+  border: 0.1rem solid var(--color-RichText-border);
   overflow-x: auto;
   padding: 1rem;
 }

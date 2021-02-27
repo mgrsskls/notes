@@ -81,9 +81,6 @@
               modifiers: ["primary", "large"],
               submit: true,
             } %}
-            {% if note and note.id %}
-              <a class="Form-cancel" href="/notes/{{note.id}}">{{ 'note.update.cancel'|t }}</a>
-            {% endif %}
           </div>
         </row>
       </form>
