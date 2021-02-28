@@ -43,11 +43,12 @@ module.exports = {
       },
       ACCESS_TOKEN_SECRET,
       {
-        expiresIn: 60 * 60 * 24 * 365,
+        expiresIn: 60 * 60 * 24 * 14,
       }
     );
 
     res.cookie("jwt", accessToken, {
+      expires: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
     });

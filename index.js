@@ -37,7 +37,15 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(csrf({ cookie: true }));
+app.use(
+  csrf({
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      sameSite: "strict",
+    },
+  })
+);
 app.use(compression());
 app.set("trust proxy", true);
 app.use("/", limiter);

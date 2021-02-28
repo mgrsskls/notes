@@ -10,6 +10,8 @@ module.exports = function Router(app) {
   app.get("/", csrfProtection, (req, res) => {
     verify(req)
       .then(async () => {
+        login(res);
+
         res.render(
           "index/index",
           deepMerge(await index(req.query), { csrfToken: req.csrfToken() })
@@ -23,6 +25,8 @@ module.exports = function Router(app) {
   app.get("/notes/new", csrfProtection, (req, res) => {
     verify(req)
       .then(async () => {
+        login(res);
+
         res.render(
           "new/new",
           deepMerge(await index(req.query), { csrfToken: req.csrfToken() })
@@ -55,6 +59,8 @@ module.exports = function Router(app) {
   app.get("/notes/:id", csrfProtection, (req, res) => {
     verify(req)
       .then(async () => {
+        login(res);
+
         res.render(
           "show/show",
           deepMerge(await show(req.params.id, req.query), {
@@ -70,6 +76,8 @@ module.exports = function Router(app) {
   app.get("/notes/:id/edit", csrfProtection, (req, res) => {
     verify(req)
       .then(async () => {
+        login(res);
+
         res.render(
           "edit/edit",
           deepMerge(await edit(req.params.id, req.query), {
