@@ -5,18 +5,18 @@
       {% for tag in tags %}
         <li>
           <form action="/">
-            {% if tag in activeTags %}
+            {% if tag.tag in activeTags %}
               {% for activeTag in activeTags %}
-                {% if activeTag != tag %}
+                {% if activeTag != tag.tag %}
                   <input type="hidden" name="tags[]" value="{{ activeTag }}">
                 {% endif %}
               {% endfor %}
-              <button class="Button Button--secondary Button--small" type="submit" role="checkbox" aria-checked="true">{{ tag }}</button>
+              <button class="Button Button--secondary Button--small" type="submit" role="checkbox" aria-checked="true">{{ tag.tag }} <span class="Button-amount">{{tag.amount}}</span></button>
             {% else %}
               {% for activeTag in activeTags %}
                 <input type="hidden" name="tags[]" value="{{ activeTag }}">
               {% endfor %}
-              <button class="Button Button--secondary Button--small" type="submit" name="tags[]" value="{{ tag }}" role="checkbox">{{ tag }}</button>
+              <button class="Button Button--secondary Button--small" type="submit" name="tags[]" value="{{ tag.tag }}" role="checkbox"{% if not tag.active %} disabled{% endif %}>{{ tag.tag }} <span class="Button-amount">{{tag.amount}}</span></button>
             {% endif %}
           </form>
         </li>

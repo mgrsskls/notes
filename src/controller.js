@@ -227,7 +227,7 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
         }
       }),
     ]).then(([allNotes, allTags]) => {
-      let notes = Object.values(allNotes).map(
+      const notes = Object.values(allNotes).map(
         ({ id, title, url, text, created_at: createdAt }) => {
           return {
             id,
@@ -242,16 +242,33 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
           };
         }
       );
+      let filteredNotes = notes;
 
       if (activeTags.length > 0) {
-        notes = notes.filter((note) =>
+        filteredNotes = filteredNotes.filter((note) =>
           activeTags.every((tag) => note.tags.includes(tag))
         );
       }
 
       resolveIndex({
-        notes: notes.sort((a, b) => b.id - a.id),
-        tags: [...new Set(allTags.map((tag) => tag.tag))],
+        notes: filteredNotes.sort((a, b) => b.id - a.id),
+        tags: [...new Set(allTags.map((tag) => tag.tag))]
+          .map((tag) => {
+            const notesWithTag = notes.filter(({ tags }) => tags.includes(tag));
+            const filteredNotesWithTag = filteredNotes.filter(({ tags }) =>
+              tags.includes(tag)
+            );
+            return {
+              tag,
+              active: filteredNotesWithTag.length > 0,
+              amount: notesWithTag.length,
+            };
+          })
+          .sort((a, b) => {
+            if (a.tag < b.tag) return -1;
+            if (a.tag > b.tag) return 1;
+            return 0;
+          }),
         activeTags,
         query,
       });
