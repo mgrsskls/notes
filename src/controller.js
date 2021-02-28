@@ -7,6 +7,8 @@ const cache = {
   notes: {},
   tags: [],
 };
+let lastQuery = null;
+let allNotesInCache = false;
 
 module.exports = {
   async index({ tags: activeTags = [], query }) {
@@ -204,7 +206,7 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
   return new Promise((resolveIndex) => {
     Promise.all([
       new Promise((resolve) => {
-        if (Object.keys(cache.notes).length > 1 && !query) {
+        if (allNotesInCache && !query) {
           resolve(cache.notes);
         } else {
           db.getNotes(query, (error, { rows }) => {
@@ -212,6 +214,7 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
             rows.forEach((note) => {
               cache.notes[note.id] = note;
             });
+            allNotesInCache = !query;
             resolve(cache.notes);
           });
         }
