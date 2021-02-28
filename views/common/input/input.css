@@ -1,8 +1,14 @@
 /** @define Input; */
 
 .Input-element {
+  background: var(--color-Light-bright);
   border-radius: 0.3rem;
   margin: 1rem 0 0;
+}
+
+.Input-element:focus {
+  border-color: var(--color-Tertiary);
+  outline: none;
 }
 
 .Input-element[aria-invalid] {
