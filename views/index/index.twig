@@ -6,9 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <header class="IndexHeader">
-    {% include "../common/header/header.twig" with {query: query, tags: tags, activeTags: activeTags} only %}
-  </header>
+  {% include "../common/header/header.twig" with {query: query, tags: tags, activeTags: activeTags} only %}
   <main class="IndexMain">
     {% if notes|length > 0 %}
       <ul class="Index">

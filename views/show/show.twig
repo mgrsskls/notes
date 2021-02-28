@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <header class="IndexHeader">
-    {% include "../common/header/header.twig" with {tags: tags, activeTags: activeTags} only %}
-  </header>
+  {% include "../common/header/header.twig" with {tags: tags, activeTags: activeTags} only %}
   <main class="IndexMain u-flex u-flex-col">
     <div class="Note u-flex u-flex-col u-flex-grow">
       <h2 class="Note-title">{{ note.title }}</h2>

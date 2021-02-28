@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <header class="IndexHeader">
-    {% include "../header/header.twig" with {tags: tags, activeTags: activeTags} only %}
-  </header>
+  {% include "../header/header.twig" with {tags: tags, activeTags: activeTags} only %}
   <main class="IndexMain u-flex u-flex-col">
     <div class="Note u-flex-grow u-flex u-flex-col">
       <form class="Form u-flex u-flex-col u-flex-grow" action="{{ submit.url }}" method="post">
