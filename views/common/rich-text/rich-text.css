@@ -23,6 +23,18 @@
 .RichText pre {
   background: var(--color-RichText-bg);
   border: 0.1rem solid var(--color-RichText-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.RichText pre code {
+  display: block;
   overflow-x: auto;
   padding: 1rem;
+  width: 100%;
+}
+
+.RichText ul,
+.RichText ol {
+  margin-left: 1.5em;
 }

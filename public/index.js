@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", (e) =>
       copy(e.target.closest("button"), code)
     );
-    code.closest(".Note-text").appendChild(button);
+    code.closest("pre").appendChild(button);
   });
 
   if (document.querySelector(".Index")) {

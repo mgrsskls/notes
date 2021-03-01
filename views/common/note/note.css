@@ -9,6 +9,10 @@
   padding: 2rem;
 }
 
+.Note-content {
+  padding: 0 0 2rem;
+}
+
 .Note-title {
   font-size: 1.175em;
   font-weight: 700;
@@ -17,6 +21,11 @@
 
 .Note--full .Note-title {
   font-size: 1.5em;
+}
+
+.Note-title a {
+  display: inline-block;
+  text-decoration: none;
 }
 
 .Note-link {
@@ -28,14 +37,6 @@
 .Note-text {
   margin-top: 2rem;
   position: relative;
-}
-
-.Note-tags {
-  align-items: center;
-  display: flex;
-  font-size: 0.875em;
-  gap: 1rem;
-  margin-top: 2rem;
 }
 
 .Note-topic {
@@ -99,12 +100,26 @@
 }
 
 .Note-footer {
+  border-top: 0.1rem solid var(--color-Light-dark);
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
   margin-top: auto;
   padding-top: 2rem;
+}
+
+.Note-tags {
+  align-items: center;
+  display: flex;
+  font-size: 0.875em;
+  gap: 1rem;
+}
+
+.Note-meta {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
 }
 
 .Note-actionsList {
@@ -114,12 +129,14 @@
   font-weight: 600;
   grid-gap: 1rem;
   list-style: none;
-}
-
-:not(.Note-footer) > .Note-actionsList {
-  padding-top: 2rem;
+  margin-left: auto;
 }
 
 .Note-createdAt {
   color: var(--color-Note-createdAt);
+}
+
+.Note-createdAt::before {
+  content: "·";
+  padding-right: 1rem;
 }

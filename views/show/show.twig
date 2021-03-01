@@ -13,40 +13,42 @@
   } only %}
   <main class="IndexMain u-flex u-flex-col">
     <div class="Note Note--full u-flex u-flex-col u-flex-grow">
-      <h2 class="Note-title">{{ note.title }}</h2>
-      {% if note.url %}
-      <p>
-        <a class="Note-link" href="{{ note.url }}" target="_blank" rel="noopener noreferrer">{{ note.url }}</a>
-      </p>
-      {% endif %}
-      {% if note.text %}
-      <div class="Note-text">
-        {% include "../common/rich-text/rich-text.twig" with {text: note.text} %}
-      </div>
-      {% endif %}
-      {% if note.tags|length > 0 %}
-      <div class="Note-tags">
-        <div class="Note-topic">
-          {{ note.topic }}
+      <div class="Note-content">
+        <h2 class="Note-title">{{ note.title }}</h2>
+        {% if note.url %}
+        <p>
+          <a class="Note-link" href="{{ note.url }}" target="_blank" rel="noopener noreferrer">{{ note.url }}</a>
+        </p>
+        {% endif %}
+        {% if note.text %}
+        <div class="Note-text">
+          {% include "../common/rich-text/rich-text.twig" with {text: note.text} %}
         </div>
-        {% include "../common/note/tags/tags.twig" with {tags: note.tags} %}
+        {% endif %}
       </div>
-      {% endif %}
       <div class="Note-footer">
-        <ul class="Note-actionsList">
-          <li>
-            <a href="/notes/{{ note.id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
-          </li>
-          <li>
-            <form action="/notes/{{ note.id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
-              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-              <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-                {{ 'note.delete.submit'|t }}
-              </button>
-            </form>
-          </li>
-        </ul>
-        <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
+        <div class="Note-tags">
+          <div class="Note-topic">
+            {{ note.topic }}
+          </div>
+          {% include "../common/note/tags/tags.twig" with {tags: note.tags} %}
+        </div>
+        <div class="Note-meta">
+          <ul class="Note-actionsList">
+            <li>
+              <a href="/notes/{{ note.id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
+            </li>
+            <li>
+              <form action="/notes/{{ note.id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                  {{ 'note.delete.submit'|t }}
+                </button>
+              </form>
+            </li>
+          </ul>
+          <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
+        </div>
         <script>
           document.getElementById("note-date").textContent = new Date("{{ note.createdAt }}").toLocaleString();
         </script>

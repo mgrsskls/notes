@@ -1,34 +1,24 @@
 <div class="Note">
-  <h2 class="Note-title">{{ title }}</h2>
-  {% if url %}
-  <p>
-    <a class="Note-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">{{ url }}</a>
-  </p>
-  {% endif %}
-  {% if text %}
-  <div class="Note-text">
-    {% include "../rich-text/rich-text.twig" with {text: text} %}
+  <div class="Note-content">
+    <h2 class="Note-title">
+      <a href="/notes/{{ id }}">{{ title }}</a>
+    </h2>
+    {% if url %}
+    <p>
+      <a class="Note-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+    </p>
+    {% endif %}
+    {% if text %}
+    <div class="Note-text">
+      {% include "../rich-text/rich-text.twig" with {text: text} %}
+    </div>
+    {% endif %}
   </div>
-  {% endif %}
   {% if tags|length > 0 %}
-  <div class="Note-tags">
-    {% include "./tags/tags.twig" with {tags: tags} %}
-  </div>
+    <div class="Note-footer">
+      <div class="Note-tags">
+        {% include "./tags/tags.twig" with {tags: tags} %}
+      </div>
+    </div>
   {% endif %}
-  <ul class="Note-actionsList">
-    <li>
-      <a href="/notes/{{ id }}">{{ 'note.show.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
-    </li>
-    <li>
-      <a href="/notes/{{ id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
-    </li>
-    <li>
-      <form action="/notes/{{ id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-        <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-          {{ 'note.delete.submit'|t }}
-        </button>
-      </form>
-    </li>
-  </ul>
 </div>
