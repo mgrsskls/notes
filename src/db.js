@@ -32,13 +32,14 @@ module.exports = {
     });
   },
 
-  createNote: (title, url, text) => {
+  createNote: (title, url, text, topic) => {
     return client.query(
-      "INSERT INTO notes (title, url, text) VALUES ($1, $2, $3) RETURNING id, title, url, text;",
+      "INSERT INTO notes (title, url, text, topic) VALUES ($1, $2, $3, $4) RETURNING id, title, url, text, topic;",
       [
         title === "" ? null : title,
         url === "" ? null : url,
         text === "" ? null : text,
+        topic === "" ? null : topic,
       ]
     );
   },

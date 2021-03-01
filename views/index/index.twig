@@ -6,7 +6,12 @@
 {% endblock %}
 
 {% block content %}
-  {% include "../common/header/header.twig" with {query: query, tags: tags, activeTags: activeTags} only %}
+  {% include "../common/header/header.twig" with {
+    query: query,
+    tags: tags,
+    topics: topics,
+    activeTags: activeTags
+  } only %}
   <main class="IndexMain">
     {% if notes|length > 0 %}
       <ul class="Index">

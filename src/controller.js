@@ -6,13 +6,13 @@ const md = new Md();
 const cache = {
   notes: {},
   tags: [],
+  topics: [],
 };
-let lastQuery = null;
 let allNotesInCache = false;
 
 module.exports = {
-  async index({ tags: activeTags = [], query }) {
-    return getNotesAndTags({ activeTags, query }, true);
+  async index({ tags: activeTags = [], query, topic }) {
+    return getNotesAndTags({ activeTags, query, topic }, true);
   },
 
   async show(id, { tags: activeTags = [], query }) {
@@ -30,6 +30,7 @@ module.exports = {
         text: note.text,
         tags: note.tags,
         createdAt: note.created_at,
+        topic: note.topic,
       },
     };
   },
@@ -43,11 +44,11 @@ module.exports = {
     };
   },
 
-  async create({ title, url, text, tags }) {
+  async create({ title, url, text, tags, topic }) {
     let result;
 
     try {
-      result = await db.createNote(title, url, text);
+      result = await db.createNote(title, url, text, topic);
       const [note] = result.rows;
       cache.notes[note.id] = {
         id: parseInt(note.id, 10),
@@ -56,11 +57,12 @@ module.exports = {
         text: note.text,
         tags,
         created_at: note.created_at,
+        topic: note.topic,
       };
     } catch (error) {
       return {
         error: error.toString(),
-        note: { title, url, text, tags },
+        note: { title, url, text, tags, topic },
       };
     }
 
@@ -119,7 +121,7 @@ module.exports = {
     });
   },
 
-  async update(id, { title, url, text, tags }) {
+  async update(id, { title, url, text, tags, topic }) {
     const parsedId = parseInt(id, 10);
 
     return new Promise((resolve) => {
@@ -138,6 +140,7 @@ module.exports = {
                 url,
                 text,
                 tags,
+                topic,
               };
               res();
             }
@@ -196,25 +199,26 @@ module.exports = {
 };
 
 /**
- * @param {object} obj
+ * @param {object} params
  * @param {Array} obj.activeTags
  * @param {string} obj.query
+ * @param {string} obj.topic
  * @param {boolean} convertMarkdown
  * @returns {Promise}
  */
-function getNotesAndTags({ activeTags, query }, convertMarkdown) {
+function getNotesAndTags(params, convertMarkdown) {
   return new Promise((resolveIndex) => {
     Promise.all([
       new Promise((resolve) => {
-        if (allNotesInCache && !query) {
+        if (allNotesInCache && !params.query) {
           resolve(cache.notes);
         } else {
-          db.getNotes(query, (error, { rows }) => {
+          db.getNotes(params.query, (error, { rows }) => {
             cache.notes = {};
             rows.forEach((note) => {
               cache.notes[note.id] = note;
             });
-            allNotesInCache = !query;
+            allNotesInCache = !params.query;
             resolve(cache.notes);
           });
         }
@@ -231,7 +235,7 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
       }),
     ]).then(([allNotes, allTags]) => {
       const notes = Object.values(allNotes).map(
-        ({ id, title, url, text, created_at: createdAt }) => {
+        ({ id, title, url, text, topic, created_at: createdAt }) => {
           return {
             id,
             title,
@@ -241,15 +245,23 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
               .filter(({ note_id: nodeId }) => nodeId === id)
               .map(({ tag }) => tag)
               .sort((a, b) => a - b),
+            topic,
             created_at: createdAt,
           };
         }
       );
+      const topics = [...new Set(notes.map((note) => note.topic))];
       let filteredNotes = notes;
 
-      if (activeTags.length > 0) {
+      if (params.topic) {
+        filteredNotes = filteredNotes.filter(
+          (note) => note.topic === params.topic
+        );
+      }
+
+      if (params?.activeTags.length > 0) {
         filteredNotes = filteredNotes.filter((note) =>
-          activeTags.every((tag) => note.tags.includes(tag))
+          params.activeTags.every((tag) => note.tags.includes(tag))
         );
       }
 
@@ -272,8 +284,15 @@ function getNotesAndTags({ activeTags, query }, convertMarkdown) {
             if (a.tag > b.tag) return 1;
             return 0;
           }),
-        activeTags,
-        query,
+        activeTags: params.activeTags,
+        query: params.query,
+        topics: topics.map((topic) => {
+          return {
+            topic,
+            current: params.topic === topic,
+            amount: notes.filter((note) => note.topic === topic).length,
+          };
+        }),
       });
     });
   });

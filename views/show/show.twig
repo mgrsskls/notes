@@ -5,9 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  {% include "../common/header/header.twig" with {tags: tags, activeTags: activeTags} only %}
+  {% include "../common/header/header.twig" with {
+    query: query,
+    tags: tags,
+    topics: topics,
+    activeTags: activeTags
+  } only %}
   <main class="IndexMain u-flex u-flex-col">
-    <div class="Note u-flex u-flex-col u-flex-grow">
+    <div class="Note Note--full u-flex u-flex-col u-flex-grow">
       <h2 class="Note-title">{{ note.title }}</h2>
       {% if note.url %}
       <p>
@@ -21,6 +26,9 @@
       {% endif %}
       {% if note.tags|length > 0 %}
       <div class="Note-tags">
+        <div class="Note-topic">
+          {{ note.topic }}
+        </div>
         {% include "../common/note/tags/tags.twig" with {tags: note.tags} %}
       </div>
       {% endif %}

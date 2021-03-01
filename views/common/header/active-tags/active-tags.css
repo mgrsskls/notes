@@ -1,12 +1,12 @@
 /** @define ActiveTags; */
 
 .ActiveTags {
-  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
 }
 
 .ActiveTags-label {
+  color: var(--color-Tertiary-light);
   font-weight: 600;
 }

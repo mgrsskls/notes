@@ -16,6 +16,7 @@ const locales = {
         url: "URL",
         text: "Text",
         tags: "Tags",
+        topic: "Topic",
       },
       validation: {
         title: "Title needs to be filled out",
@@ -46,6 +47,9 @@ const locales = {
     },
     tags: {
       label: "Tags",
+    },
+    topics: {
+      label: "Topics",
     },
   },
 };

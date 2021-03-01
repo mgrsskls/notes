@@ -12,6 +12,11 @@
 .Note-title {
   font-size: 1.175em;
   font-weight: 700;
+  margin-block-end: 0.5em;
+}
+
+.Note--full .Note-title {
+  font-size: 1.5em;
 }
 
 .Note-link {
@@ -26,8 +31,18 @@
 }
 
 .Note-tags {
+  align-items: center;
+  display: flex;
   font-size: 0.875em;
+  gap: 1rem;
   margin-top: 2rem;
+}
+
+.Note-topic {
+  color: var(--color-Topic);
+  font-size: 0.825em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .Note-copy {

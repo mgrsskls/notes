@@ -18,7 +18,9 @@
 html {
   --color-Primary: #9f2050;
   --color-Secondary: hsl(200, 82%, 12.5%);
-  --color-Tertiary: #3e7e8e;
+  --color-Tertiary: hsl(192, 40%, 40%);
+  --color-Tertiary-light: hsl(192, 40%, 70%);
+  --color-Tertiary-dark: hsl(192, 40%, 30%);
   --color-White: #fff;
   --color-Light-bright: #fbfcfc;
   --color-Light-medium: #ecf1f2;
@@ -34,6 +36,8 @@ html {
   --color-Note-createdAt: var(--color-Grey);
   --color-RichText-bg: var(--color-Light-bright);
   --color-RichText-border: var(--color-Light-dark);
+  --color-Tags-border: var(--color-Grey);
+  --color-Topic: var(--color-Grey);
 
   font-size: 62.5%;
 }
@@ -51,6 +55,8 @@ html {
     --color-Note-createdAt: var(--color-Light);
     --color-RichText-bg: hsl(200, 82%, 15%);
     --color-RichText-border: var(--color-Dark);
+    --color-Tags-border: var(--color-Tertiary-light);
+    --color-Topic: var(--color-Tertiary-light);
   }
 }
 

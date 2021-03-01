@@ -1,0 +1,17 @@
+{% if topics|length > 0 %}
+  <div class="Topics">
+    <p class="Topics-label">{{ 'topics.label'|t }}</p>
+    <ul class="Topics-list">
+      {% for topic in topics %}
+        <li class="Topics-item">
+          <form action="/">
+            <button class="Topic" type="submit" name="topic" value="{{ topic.topic }}"{% if topic.current %} aria-current="true"{% endif %}>
+              <span class="Topic-label">{{ topic.topic }}</span>
+              <span class="Topic-amount">{{ topic.amount }}</span>
+            </button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

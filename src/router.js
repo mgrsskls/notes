@@ -41,7 +41,7 @@ module.exports = function Router(app) {
     verify(req)
       .then(async () => {
         const data = await create(req.body);
-
+        console.log(data.error);
         if (data.error) {
           res.render(
             "new/new",

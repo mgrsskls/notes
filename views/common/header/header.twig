@@ -3,6 +3,7 @@
     <h1><a href="/">Notes</a></h1>
     <div class="Header-content u-flex-grow">
       {% include "./search/search.twig" with {query: query} only %}
+      {% include "./topics/topics.twig" with {topics: topics} only %}
       {% include "./active-tags/active-tags.twig" with {tags: tags, activeTags: activeTags} only %}
     </div>
     <div class="Header-new">

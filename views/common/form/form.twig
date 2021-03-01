@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block content %}
-  {% include "../header/header.twig" with {tags: tags, activeTags: activeTags} only %}
+  {% include "../header/header.twig" with {
+    query: query,
+    tags: tags,
+    topics: topics,
+    activeTags: activeTags
+  } only %}
   <main class="IndexMain u-flex u-flex-col">
     <div class="Note u-flex-grow u-flex u-flex-col">
       <form class="Form u-flex u-flex-col u-flex-grow" action="{{ submit.url }}" method="post">
@@ -38,38 +43,57 @@
         </row>
 
         <row>
-          {% set tags_content %}
-            <datalist id="tags">
-              {% for tag in tags %}
-                <option value="{{ tag }}">
-              {% endfor %}
-            </datalist>
-            <ul class="Form-tags Tags">
-              {% for tag in note.tags %}
-                <li class="Form-tag">
-                  <input type="hidden" name="tags[]" value="{{ tag }}">
-                  {% include "../button/button.twig" with {
-                    label: tag,
-                    modifiers: ["secondary", "small", "delete"]
-                  } %}
-                </li>
-              {% endfor %}
-              <template id="tag-template">
-                <li class="Form-tag">
-                  <input type="hidden" name="tags[]">
-                  {% include "../button/button.twig" with {
-                    modifiers: ["secondary", "small", "delete"]
-                  } %}
-                </li>
-              </template>
-            </ul>
-          {% endset %}
-          {% include "../input/input.twig" with {
-            alias: "tag",
-            label: "note.attributes.tags"|t,
-            list: "tags",
-            content: tags_content
-          } %}
+          <div>
+            {% set topics_content %}
+              <datalist id="topics">
+                {% for topic in topics %}
+                  <option value="{{ topic.topic }}">
+                {% endfor %}
+              </datalist>
+            {% endset %}
+            {% include "../input/input.twig" with {
+              alias: "topic",
+              label: "note.attributes.topic"|t,
+              list: "topics",
+              content: topics_content,
+              value: note.topic,
+              required: true,
+            } %}
+          </div>
+          <div>
+            {% set tags_content %}
+              <datalist id="tags">
+                {% for tag in tags %}
+                  <option value="{{ tag.tag }}">
+                {% endfor %}
+              </datalist>
+              <ul class="Form-tags Tags">
+                {% for tag in note.tags %}
+                  <li class="Form-tag">
+                    <input type="hidden" name="tags[]" value="{{ tag }}">
+                    {% include "../button/button.twig" with {
+                      label: tag,
+                      modifiers: ["secondary", "small", "delete"]
+                    } %}
+                  </li>
+                {% endfor %}
+                <template id="tag-template">
+                  <li class="Form-tag">
+                    <input type="hidden" name="tags[]">
+                    {% include "../button/button.twig" with {
+                      modifiers: ["secondary", "small", "delete"]
+                    } %}
+                  </li>
+                </template>
+              </ul>
+            {% endset %}
+            {% include "../input/input.twig" with {
+              alias: "tag",
+              label: "note.attributes.tags"|t,
+              list: "tags",
+              content: tags_content
+            } %}
+          </div>
         </row>
 
         <row>

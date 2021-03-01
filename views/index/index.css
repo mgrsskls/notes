@@ -1,7 +1,7 @@
 /** @define Index; */
 
 .Index-item::marker {
-  color: var(--color-Content-bg);
+  color: transparent;
 }
 
 @supports (grid-template-rows: masonry) {
