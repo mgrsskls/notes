@@ -1,5 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
+  const textarea = document.querySelector("textarea");
+
+  if (textarea) {
+    const simpleMDE = new SimpleMDE({
+      element: textarea,
+      toolbar: false,
+      autoDownloadFontAwesome: false,
+      forceSync: true,
+      spellChecker: false,
+      status: false,
+      placeholder: "Start typing in Markdown…",
+    });
+  }
 
   Array.from(document.querySelectorAll("pre code")).forEach((code) => {
     const template = document.getElementById("copy");

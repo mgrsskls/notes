@@ -1,12 +1,15 @@
 /** @define Input; */
 
 .Input-element {
-  background: var(--color-Light-bright);
+  background: var(--color-Light-bright) !important;
   border-radius: 0.3rem;
   margin: 1rem 0 0;
 }
 
-.Input-element:focus {
+/* stylelint-disable */
+.Input-element:focus,
+.CodeMirror-focused {
+  /* stylelint-enable */
   border-color: var(--color-Tertiary);
   outline: none;
 }

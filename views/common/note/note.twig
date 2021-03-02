@@ -1,7 +1,11 @@
-<div class="Note">
+<div class="Note{% if full %} Note--full u-flex u-flex-col u-flex-grow{% endif %}">
   <div class="Note-content">
     <h2 class="Note-title">
-      <a href="/notes/{{ id }}">{{ title }}</a>
+      {% if full %}
+        {{ title }}
+      {% else %}
+        <a class="Note-titleLink" href="/notes/{{ id }}">{{ title }}</a>
+      {% endif %}
     </h2>
     {% if url %}
     <p>
@@ -10,15 +14,39 @@
     {% endif %}
     {% if text %}
     <div class="Note-text">
-      {% include "../rich-text/rich-text.twig" with {text: text} %}
+      {% include "../rich-text/rich-text.twig" with {text: text, size: "small"} %}
     </div>
     {% endif %}
   </div>
-  {% if tags|length > 0 %}
-    <div class="Note-footer">
-      <div class="Note-tags">
-        {% include "./tags/tags.twig" with {tags: tags} %}
-      </div>
+  <div class="Note-footer">
+    <div class="Note-tags">
+      {% if full %}
+        <div class="Note-topic">
+          {{ topic }}
+        </div>
+      {% endif %}
+      {% include "./tags/tags.twig" with {tags: tags} %}
     </div>
-  {% endif %}
+    {% if full %}
+      <div class="Note-meta">
+        <ul class="Note-actionsList">
+          <li>
+            <a href="/notes/{{ note.id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
+          </li>
+          <li>
+            <form action="/notes/{{ note.id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+              <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                {{ 'note.delete.submit'|t }}
+              </button>
+            </form>
+          </li>
+        </ul>
+        <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
+      </div>
+      <script>
+        document.getElementById("note-date").textContent = new Date("{{ note.createdAt }}").toLocaleString();
+      </script>
+    {% endif %}
+  </div>
 </div>

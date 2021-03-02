@@ -1,18 +1,34 @@
-/** @define RichText; weak */
-
 .RichText > * + *:not(.Note-copy) {
   margin-top: 1.5em;
 }
 
-.RichText h1,
-.RichText h2,
 .RichText h3,
 .RichText h4,
 .RichText h5,
 .RichText h6,
 .RichText strong,
-.RichText b {
-  font-weight: bold;
+.RichText b,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-strong {
+  font-weight: bold !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+}
+
+.RichText--large h3,
+.cm-header-3 {
+  font-size: 2.6rem !important;
+}
+
+.RichText--small h3 {
+  font-size: 1.8rem;
+}
+
+.RichText--large h4,
+.cm-header-4 {
+  font-size: 2rem !important;
 }
 
 .RichText em,
@@ -23,8 +39,16 @@
 .RichText pre {
   background: var(--color-RichText-bg);
   border: 0.1rem solid var(--color-RichText-border);
+}
+
+.RichText pre {
   overflow: hidden;
   position: relative;
+}
+
+.cm-comment {
+  background: none !important;
+  border-radius: 0 !important;
 }
 
 .RichText pre code {
@@ -35,6 +59,17 @@
 }
 
 .RichText ul,
-.RichText ol {
+.RichText ol,
+.cm-formatting-list {
   margin-left: 1.5em;
+}
+
+.CodeMirror {
+  border: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.CodeMirror-placeholder {
+  font-style: italic;
 }

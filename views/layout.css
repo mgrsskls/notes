@@ -43,7 +43,8 @@ row + row {
   flex: 1;
 }
 
-code {
+code,
+.cm-comment {
   font-family: Menlo, Monaco, monospace;
   font-size: 0.875em;
 }
