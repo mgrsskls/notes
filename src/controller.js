@@ -1,7 +1,7 @@
 const Md = require("markdown-it");
 const db = require("./db");
 
-const md = new Md();
+const md = new Md({ breaks: true, linkify: true });
 
 const cache = {
   notes: {},
