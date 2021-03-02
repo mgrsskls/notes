@@ -1,1 +1,3 @@
-<div class="RichText RichText--{{ size }}">{{ text|raw }}</div>
+<div class="RichText RichText--{{ size }}">
+  {% block content %}{% endblock %}
+</div>

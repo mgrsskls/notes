@@ -10,33 +10,15 @@
   padding: 2rem;
 }
 
-.Note-content {
+.Note--full {
+  padding: 3rem;
+}
+
+.Note-content:not(:last-child) {
   padding: 0 0 2rem;
 }
 
-.Note-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-block-end: 0.5em;
-}
-
-.Note--full .Note-title {
-  font-size: 3.2rem;
-}
-
-.Note-titleLink {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.Note-link {
-  color: var(--color-Note-link);
-  display: inline-block;
-  word-break: break-word;
-}
-
 .Note-text {
-  margin-top: 2rem;
   position: relative;
 }
 
