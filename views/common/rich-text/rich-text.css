@@ -19,6 +19,7 @@
 
 .RichText a {
   color: var(--color-Note-link);
+  word-break: break-word;
 }
 
 .RichText h3,
