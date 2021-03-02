@@ -1,23 +1,22 @@
 <div class="Note{% if full %} Note--full u-flex u-flex-col u-flex-grow{% endif %}">
   <div class="Note-content">
     <div class="Note-text">
-      {% embed "../rich-text/rich-text.twig" with {size: full ? "large" : "small"} %}
-        {% block content %}
-          <h2 class="Note-title">
-            {% if full %}
-              {{ title }}
-            {% else %}
-              <a class="Note-titleLink" href="/notes/{{ id }}">{{ title }}</a>
-            {% endif %}
-          </h2>
-          {% if url %}
+      {% set text %}
+        <h2 class="Note-title">
+          {% if full %}
+            {{ title }}
+          {% else %}
+            <a class="Note-titleLink" href="/notes/{{ id }}">{{ title }}</a>
+          {% endif %}
+        </h2>
+        {% if url %}
           <p>
             <a class="Note-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">{{ url }}</a>
           </p>
-          {% endif %}
-          {{ text|raw }}
-        {% endblock %}
-      {% endembed %}
+        {% endif %}
+        {{ text|raw }}
+      {% endset %}
+      {% include "../rich-text/rich-text.twig" with {text: text, size: full ? "large" : "small"} %}
     </div>
   </div>
   {% if full or tags and tags|length > 0 %}
