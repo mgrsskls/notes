@@ -46,9 +46,6 @@
       </ul>
       {% if full %}
         <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
-        <script>
-          document.getElementById("note-date").textContent = new Date("{{ note.createdAt }}").toLocaleString();
-        </script>
       {% endif %}
     </div>
   </div>

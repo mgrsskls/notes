@@ -1,3 +1,5 @@
+/* global SimpleMDE */
+
 document.addEventListener("DOMContentLoaded", () => {
   const tags = [];
   const textarea = document.querySelector("textarea");
@@ -12,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
       status: false,
       placeholder: "Start typing in Markdown…",
     });
+  }
+
+  const noteDate = document.getElementById("note-date");
+  if (noteDate) {
+    noteDate.textContent = new Date(
+      noteDate.getAttribute("datetime")
+    ).toLocaleString();
   }
 
   Array.from(document.querySelectorAll("pre code")).forEach((code) => {
