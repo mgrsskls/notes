@@ -79,7 +79,9 @@
 }
 
 .Note-delete {
+  color: inherit;
   text-decoration: underline;
+  text-decoration-color: var(--color-Tertiary);
 }
 
 .Note-footer {
