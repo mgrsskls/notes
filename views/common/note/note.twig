@@ -1,4 +1,7 @@
 <div class="Note{% if full %} Note--full u-flex u-flex-col u-flex-grow{% endif %}">
+  {% if isPublic %}
+    <span class="Note-public">public</span>
+  {% endif %}
   <div class="Note-content">
     <div class="Note-text">
       {% set text %}

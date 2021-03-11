@@ -7,11 +7,29 @@
   background: var(--color-Card-bg);
   border-radius: 0.3rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   padding: 2rem;
+  position: relative;
 }
 
 .Note--full {
   padding: 3rem;
+}
+
+.Note-public {
+  background: var(--color-Tertiary);
+  box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.25);
+  color: var(--color-White);
+  font-size: 0.875em;
+  font-weight: 600;
+  padding: 0.125em 0.5em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 4rem;
+  transform: rotate(45deg);
+  transform-origin: bottom right;
+  width: 10ch;
 }
 
 .Note-content:not(:last-child) {
