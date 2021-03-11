@@ -87,11 +87,14 @@
 .Note-footer {
   border-top: 0.1rem solid var(--color-Light-dark);
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: space-between;
   margin-top: auto;
   padding-top: 2rem;
+}
+
+.Note-footer--full {
+  flex-wrap: wrap;
 }
 
 .Note-tags {
@@ -102,9 +105,12 @@
 }
 
 .Note-meta {
-  align-items: center;
   display: flex;
   gap: 1rem;
+}
+
+.Note-footer--full .Note-meta {
+  align-items: center;
 }
 
 .Note-actionsList {
