@@ -26,20 +26,32 @@ module.exports = {
     );
   },
 
+  getNoteByPublicId: (publicId, cb) => {
+    client.query(
+      "SELECT * FROM notes WHERE public_id=$1",
+      [publicId],
+      (error, response) => {
+        cb(error, response);
+      }
+    );
+  },
+
   getTags: (cb) => {
     client.query("SELECT * FROM tags ORDER BY tag", [], (error, response) => {
       cb(error, response);
     });
   },
 
-  createNote: (title, url, text, topic) => {
+  createNote: (title, url, text, topic, publicId, isPublic) => {
     return client.query(
-      "INSERT INTO notes (title, url, text, topic) VALUES ($1, $2, $3, $4) RETURNING id, title, url, text, topic;",
+      "INSERT INTO notes (title, url, text, topic, public_id, is_public) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, title, url, text, topic, public_id, is_public;",
       [
         title === "" ? null : title,
         url === "" ? null : url,
         text === "" ? null : text,
         topic === "" ? null : topic,
+        publicId,
+        isPublic,
       ]
     );
   },
@@ -74,10 +86,10 @@ module.exports = {
     });
   },
 
-  updateNote: ({ title, url, text, id }, cb) => {
+  updateNote: ({ title, url, text, id, isPublic }, cb) => {
     client.query(
-      "UPDATE notes SET title = $1, url = $2, text = $3 WHERE id = $4;",
-      [title, url, text, id],
+      "UPDATE notes SET title = $1, url = $2, text = $3, is_public = $4 WHERE id = $5;",
+      [title, url, text, isPublic, id],
       (error, result) => {
         cb(error, result);
       }

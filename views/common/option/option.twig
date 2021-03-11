@@ -1,0 +1,14 @@
+<div class="Option">
+  <input
+    class="Option-element"
+    type="{{ type|default("checkbox") }}"
+    name="{{ alias }}"
+    id="{{ alias }}"
+    {% if checked %} checked{% endif %}
+    value="{{ value|default(1) }}"
+    {% if invalid %} aria-invalid="true"{% endif %}
+    {% if error %} aria-labelledby="{{ alias }}-msg"{% endif %}
+  >
+  <label class="Option-label" for="{{ alias }}">{{ label }}</label>
+  {% if error %}<p class="Option-error" id="{{ alias }}-msg">{{ error }}</p>{% endif %}
+</div>

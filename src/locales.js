@@ -17,6 +17,7 @@ const locales = {
         text: "Text",
         tags: "Tags",
         topic: "Topic",
+        public: "Public",
       },
       validation: {
         title: "Title needs to be filled out",

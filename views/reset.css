@@ -127,7 +127,7 @@ table {
 /* CUSTOM */
 
 button,
-input,
+input:not([type="checkbox"], [type="radio"]),
 select,
 textarea {
   appearance: none;
@@ -137,8 +137,14 @@ textarea {
   border: none;
   color: inherit;
   font: inherit;
-  margin: 0;
   padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
 }
 
 /* It is important to keep the outlines when elements are focused because

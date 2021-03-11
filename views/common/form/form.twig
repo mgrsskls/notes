@@ -97,6 +97,15 @@
         </row>
 
         <row>
+          {% include "../option/option.twig" with {
+            label: "note.attributes.public"|t,
+            name: "is_public",
+            checked: note.isPublic,
+            alias: "is_public",
+          } %}
+        </row>
+
+        <row>
           <div class="Input">
             {% include "../button/button.twig" with {
               label: submit.label,

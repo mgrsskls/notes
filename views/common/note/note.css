@@ -131,3 +131,8 @@
   content: "·";
   padding-right: 1rem;
 }
+
+.Note-publicUrl {
+  font-size: 0.875em;
+  margin-top: 1rem;
+}

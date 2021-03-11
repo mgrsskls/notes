@@ -19,34 +19,41 @@
       {% include "../rich-text/rich-text.twig" with {text: text, size: full ? "large" : "small"} %}
     </div>
   </div>
-  <div class="Note-footer{% if full %} Note-footer--full{% endif %}">
-    {% if full or tags and tags|length > 0 %}
-      <div class="Note-tags">
+  {% if not public %}
+    <div class="Note-footer{% if full %} Note-footer--full{% endif %}">
+      {% if full or tags and tags|length > 0 %}
+        <div class="Note-tags">
+          {% if full %}
+            <div class="Note-topic">
+              {{ topic }}
+            </div>
+          {% endif %}
+          {% include "./tags/tags.twig" with {tags: tags} %}
+        </div>
+      {% endif %}
+      <div class="Note-meta">
+        <ul class="Note-actionsList">
+          <li>
+            <a href="/notes/{{ note.id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
+          </li>
+          <li>
+            <form action="/notes/{{ note.id }}/delete" method="POST" data-confirm="{{ 'note.delete.confirm'|t }}">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+              <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
+                {{ 'note.delete.submit'|t }}
+              </button>
+            </form>
+          </li>
+        </ul>
         {% if full %}
-          <div class="Note-topic">
-            {{ topic }}
-          </div>
+          <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
         {% endif %}
-        {% include "./tags/tags.twig" with {tags: tags} %}
+      </div>
+    </div>
+    {% if full and isPublic and publicUrl %}
+      <div class="Note-publicUrl">
+        <b>Public URL:</b> {{ publicUrl }}
       </div>
     {% endif %}
-    <div class="Note-meta">
-      <ul class="Note-actionsList">
-        <li>
-          <a href="/notes/{{ note.id }}/edit">{{ 'note.update.link'|t }} <span class="u-hiddenVisually">{{ 'note.label'|t }} "{{ title }}"</span></a>
-        </li>
-        <li>
-          <form action="/notes/{{ note.id }}/delete" method="POST" onsubmit="return confirm('{{ 'note.delete.confirm'|t }}');">
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-            <button class="Note-delete" type="submit" name="delete" aria-label="{{ 'note.delete.submit'|t }}">
-              {{ 'note.delete.submit'|t }}
-            </button>
-          </form>
-        </li>
-      </ul>
-      {% if full %}
-        <p><small class="Note-createdAt">{{ 'note.createdAt'|t }} <time datetime="{{ note.createdAt }}" id="note-date">{{ note.createdAt }}</time></small></p>
-      {% endif %}
-    </div>
-  </div>
+  {% endif %}
 </div>

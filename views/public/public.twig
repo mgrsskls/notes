@@ -1,0 +1,19 @@
+{% extends "../html.twig" %}
+
+{% block head %}
+  <link rel="stylesheet" href="/assets/layout.css">
+{% endblock %}
+
+{% block content %}
+  <main class="IndexMain u-flex u-flex-col">
+    {% set note = note|merge({full: true, public: true}) %}
+    {% include "../common/note/note.twig" with note %}
+  </main>
+
+  <template id="copy">
+    <button class="Note-copy js-copy" data-label="{{ 'note.copy.feedback'|t }}">
+      <span class="u-hiddenVisually">{{ 'note.copy.label'|t }}</span>
+      <svg class="Note-copyIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.3 469.3"><path d="M330.7 0h-256C51 0 32 19 32 42.7v298.6h42.7V42.7h256V0z"/><path d="M394.7 85.3H160c-23.6 0-42.7 19.1-42.7 42.7v298.7c0 23.5 19.1 42.6 42.7 42.6h234.7c23.5 0 42.6-19 42.6-42.6V128c0-23.6-19-42.7-42.6-42.7zm0 341.4H160V128h234.7v298.7z"/></svg>
+    </button>
+  </template>
+{% endblock %}

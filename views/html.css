@@ -1,6 +1,7 @@
 @import "./reset.css";
 @import "./common/button/button.css";
 @import "./common/input/input.css";
+@import "./common/option/option.css";
 
 @font-face {
   font-family: "Langar";
@@ -104,7 +105,7 @@ label {
   font-weight: 600;
 }
 
-input,
+input:not([type="checkbox"], [type="radio"]),
 textarea {
   background: rgba(255, 255, 255, 0.9);
   border: 0.1rem solid rgba(255, 255, 255, 0.25);
@@ -117,4 +118,9 @@ textarea {
 
 small {
   font-size: 0.875em;
+}
+
+strong,
+b {
+  font-weight: bold;
 }

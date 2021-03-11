@@ -2,7 +2,16 @@ const deepMerge = require("deepmerge");
 const csrf = require("csurf");
 
 const { verify, login, checkPassword } = require("./auth");
-const { index, show, edit, create, update, destroy } = require("./controller");
+const {
+  index,
+  show,
+  edit,
+  create,
+  update,
+  destroy,
+  public,
+} = require("./controller");
+const db = require("./db");
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -41,7 +50,7 @@ module.exports = function Router(app) {
     verify(req)
       .then(async () => {
         const data = await create(req.body);
-        console.log(data.error);
+
         if (data.error) {
           res.render(
             "new/new",
@@ -63,9 +72,12 @@ module.exports = function Router(app) {
 
         res.render(
           "show/show",
-          deepMerge(await show(req.params.id, req.query), {
-            csrfToken: req.csrfToken(),
-          })
+          deepMerge(
+            await show(req.params.id, req.query, req.protocol, req.get("host")),
+            {
+              csrfToken: req.csrfToken(),
+            }
+          )
         );
       })
       .catch(() => {
@@ -113,6 +125,10 @@ module.exports = function Router(app) {
       .catch(() => {
         res.redirect("/login");
       });
+  });
+
+  app.get("/public/:id", async (req, res) => {
+    res.render("public/public", await public(req.params.id));
   });
 
   app.get("/login", csrfProtection, (req, res) => {

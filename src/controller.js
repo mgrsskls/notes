@@ -16,24 +16,29 @@ module.exports = {
     return getNotesAndTags({ activeTags, query, topic }, true);
   },
 
-  async show(id, { tags: activeTags = [], query }) {
+  async show(id, { tags: activeTags = [], query }, protocol, host) {
     const notesAndTags = await getNotesAndTags({ activeTags, query }, true);
     const note = notesAndTags.notes.find(
       (result) => result.id === parseInt(id, 10)
     );
 
+    note.id = parseInt(note.id, 10);
+    note.publicUrl = `${protocol}://${host}/public/${note.publicId}`;
+
     return {
       ...notesAndTags,
-      note: {
-        id: parseInt(note.id, 10),
-        title: note.title,
-        url: note.url,
-        text: note.text,
-        tags: note.tags,
-        createdAt: note.created_at,
-        topic: note.topic,
-      },
+      note,
     };
+  },
+
+  async public(publicId) {
+    return new Promise((resolve) => {
+      getNoteByPublicId(publicId).then((note) => {
+        const n = note;
+        n.text = convertMarkdownToHtml(n.text);
+        resolve({ note: n });
+      });
+    });
   },
 
   async edit(id, { tags: activeTags = [], query }) {
@@ -45,11 +50,12 @@ module.exports = {
     };
   },
 
-  async create({ title, url, text, tags, topic }) {
+  async create({ title, url, text, tags, topic, is_public: isPublic }) {
+    const publicId = Math.random().toString(36).substr(2, 8);
     let result;
 
     try {
-      result = await db.createNote(title, url, text, topic);
+      result = await db.createNote(title, url, text, topic, publicId, isPublic);
       const [note] = result.rows;
       cache.notes[note.id] = {
         id: parseInt(note.id, 10),
@@ -59,11 +65,13 @@ module.exports = {
         tags,
         created_at: note.created_at,
         topic: note.topic,
+        public_id: publicId,
+        is_public: isPublic,
       };
     } catch (error) {
       return {
         error: error.toString(),
-        note: { title, url, text, tags, topic },
+        note: { title, url, text, tags, topic, is_public: isPublic },
       };
     }
 
@@ -89,7 +97,7 @@ module.exports = {
       } catch (error) {
         return {
           error: error.toString(),
-          note: { title, url, text, tags },
+          note: { title, url, text, tags, is_public: isPublic },
         };
       }
     } else {
@@ -122,17 +130,17 @@ module.exports = {
     });
   },
 
-  async update(id, { title, url, text, tags, topic }) {
+  async update(id, { title, url, text, tags, topic, is_public: isPublic }) {
     const parsedId = parseInt(id, 10);
 
     return new Promise((resolve) => {
       const promises = [
         new Promise((res) => {
-          db.updateNote({ title, url, text, id }, (error) => {
+          db.updateNote({ title, url, text, id, isPublic }, (error) => {
             if (error) {
               res({
                 error: error.toString(),
-                note: { title, url, text, tags },
+                note: { title, url, text, tags, is_public: isPublic },
               });
             } else {
               cache.notes[id] = deepMerge(cache.notes[id], {
@@ -142,6 +150,7 @@ module.exports = {
                 text,
                 tags,
                 topic,
+                is_public: isPublic,
               });
               res();
             }
@@ -236,7 +245,16 @@ function getNotesAndTags(params, convertMarkdown) {
       }),
     ]).then(([allNotes, allTags]) => {
       const notes = Object.values(allNotes).map(
-        ({ id, title, url, text, topic, created_at: createdAt }) => {
+        ({
+          id,
+          title,
+          url,
+          text,
+          topic,
+          created_at: createdAt,
+          public_id: publicId,
+          is_public: isPublic,
+        }) => {
           return {
             id,
             title,
@@ -247,7 +265,9 @@ function getNotesAndTags(params, convertMarkdown) {
               .map(({ tag }) => tag)
               .sort((a, b) => a - b),
             topic,
-            created_at: createdAt,
+            createdAt,
+            publicId,
+            isPublic,
           };
         }
       );
@@ -295,6 +315,15 @@ function getNotesAndTags(params, convertMarkdown) {
           };
         }),
       });
+    });
+  });
+}
+
+function getNoteByPublicId(publicId) {
+  return new Promise((resolve, reject) => {
+    db.getNoteByPublicId(publicId, (error, { rows }) => {
+      if (error) reject();
+      resolve(rows[0]);
     });
   });
 }
