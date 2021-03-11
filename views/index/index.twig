@@ -14,13 +14,13 @@
   } only %}
   <main class="IndexMain">
     {% if notes|length > 0 %}
-      <ul class="Index">
+      <div class="Index">
         {% for note in notes %}
-        <li class="Index-item">
+        <div class="Index-item">
           {% include "../common/note/note.twig" with note %}
-        </li>
+        </div>
         {% endfor %}
-      </ul>
+      </div>
     {% endif %}
   </main>
 
