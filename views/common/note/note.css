@@ -107,6 +107,7 @@
 .Note-meta {
   display: flex;
   gap: 1rem;
+  margin-left: auto;
 }
 
 .Note-footer--full .Note-meta {
