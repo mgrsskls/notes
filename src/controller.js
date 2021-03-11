@@ -1,3 +1,4 @@
+const deepMerge = require("deepmerge");
 const Md = require("markdown-it");
 const db = require("./db");
 
@@ -134,14 +135,14 @@ module.exports = {
                 note: { title, url, text, tags },
               });
             } else {
-              cache.notes[id] = {
+              cache.notes[id] = deepMerge(cache.notes[id], {
                 id: parsedId,
                 title,
                 url,
                 text,
                 tags,
                 topic,
-              };
+              });
               res();
             }
           });
