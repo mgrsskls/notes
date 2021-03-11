@@ -50,6 +50,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  Array.from(document.querySelectorAll("form[data-confirm]")).forEach(
+    (form) => {
+      form.addEventListener("submit", (e) => {
+        const confirmed = confirm(e.target.dataset.confirm);
+
+        if (!confirmed) e.preventDefault();
+      });
+    }
+  );
+
   Array.from(document.querySelectorAll(".Form-tags button")).forEach((button) =>
     button.addEventListener(
       "click",
