@@ -7,6 +7,7 @@ const csrf = require("csurf");
 const compression = require("compression");
 const dotProp = require("dot-prop");
 const RateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 const limiter = new RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
@@ -36,6 +37,7 @@ twig.extendFilter("t", (val) => {
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
 app.use(cookieParser());
 app.use(
   csrf({
