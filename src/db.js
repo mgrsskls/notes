@@ -1,10 +1,19 @@
 const { Client } = require("pg");
+const path = require("path");
+const env = require("node-env-file");
+
+const isProduction = process.env.NODE_ENV === "production";
+let connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  const envVars = env(path.join(process.cwd(), ".env"));
+
+  connectionString = `postgresql://${envVars.DB_USER}:${envVars.DB_PASSWORD}@${envVars.DB_HOST}:${envVars.DB_PORT}/${envVars.DB_NAME}`;
+}
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  connectionString,
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
 
 client.connect((err) => {
