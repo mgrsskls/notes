@@ -1,0 +1,25 @@
+body {
+  background: var(--color-Secondary);
+  flex-direction: column;
+}
+
+.Login {
+  align-items: center;
+  background: var(--color-Secondary);
+  color: var(--color-White);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+}
+
+.Login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}
+
+/*# sourceMappingURL=login.css.map */

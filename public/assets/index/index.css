@@ -1,0 +1,35 @@
+/** @define Index; */
+
+.Index-item::marker {
+  color: transparent;
+}
+
+@supports (grid-template-rows: masonry) {
+  .Index {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+    grid-template-rows: masonry;
+    padding: 0 0 3rem;
+  }
+}
+
+@supports not (grid-template-rows: masonry) {
+  .Index-item {
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 64.0625em) and (max-width: 76em) {
+    .Index-item {
+      width: calc(100% / 2 - 3rem / 2);
+    }
+  }
+
+  @media (min-width: 76.0625em) {
+    .Index-item {
+      width: calc(100% / 3 - 6rem / 3);
+    }
+  }
+}
+
+/*# sourceMappingURL=index.css.map */
