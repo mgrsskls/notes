@@ -17,12 +17,12 @@
     "dot-prop": "^6.0.1",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.6",
-    "helmet": "^4.4.1",
+    "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "markdown-it": "^12.0.4",
+    "markdown-it": "^12.0.6",
     "node-env-file": "^0.1.8",
     "nodemon": "^2.0.7",
-    "pg": "^8.5.1",
+    "pg": "^8.6.0",
     "simplemde": "^1.11.2",
     "twig": "^1.15.4"
   },
@@ -31,9 +31,9 @@
     "build": "factorial build --only css"
   },
   "devDependencies": {
-    "@factorial/stack-core": "^0.2.8",
-    "@factorial/stack-css": "^0.2.11",
-    "@factorial/stack-javascript": "^0.2.9"
+    "@factorial/stack-core": "^0.2.11",
+    "@factorial/stack-css": "^0.4.2",
+    "@factorial/stack-javascript": "^0.5.1"
   },
   "browserslist": "last 2 Chrome versions, last 3 Firefox versions"
 }
