@@ -136,7 +136,7 @@ module.exports = {
     return new Promise((resolve) => {
       const promises = [
         new Promise((res) => {
-          db.updateNote({ title, url, text, id, isPublic }, (error) => {
+          db.updateNote({ title, url, text, id, isPublic }, (error, result) => {
             if (error) {
               res({
                 error: error.toString(),
@@ -151,6 +151,7 @@ module.exports = {
                 tags,
                 topic,
                 is_public: isPublic,
+                created_at: result.created_at,
               });
               res();
             }
