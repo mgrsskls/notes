@@ -151,7 +151,7 @@ module.exports = {
                 tags,
                 topic,
                 is_public: isPublic,
-                created_at: result.created_at,
+                created_at: result.rows[0].created_at,
               });
               res();
             }
@@ -288,7 +288,9 @@ function getNotesAndTags(params, convertMarkdown) {
       }
 
       resolveIndex({
-        notes: filteredNotes.sort((a, b) => b.id - a.id),
+        notes: filteredNotes.sort((a, b) => {
+          return b.createdAt - a.createdAt;
+        }),
         tags: [...new Set(allTags.map((tag) => tag.tag))]
           .map((tag) => {
             const notesWithTag = notes.filter(({ tags }) => tags.includes(tag));

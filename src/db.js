@@ -29,10 +29,10 @@ module.exports = {
     client.query(
       query
         ? `
-        SELECT * FROM notes WHERE title ILIKE $1 OR url ILIKE $1 OR text ILIKE $1 ORDER BY id DESC;
+        SELECT * FROM notes WHERE title ILIKE $1 OR url ILIKE $1 OR text ILIKE $1 ORDER BY created_at DESC;
         `
         : `
-        SELECT * FROM notes ORDER BY id DESC;
+        SELECT * FROM notes ORDER BY created_at DESC;
       `,
       query ? [`%${query}%`] : [],
       (error, response) => {
@@ -103,7 +103,7 @@ module.exports = {
 
   updateNote: ({ title, url, text, id, isPublic }, cb) => {
     client.query(
-      "UPDATE notes SET title = $1, url = $2, text = $3, is_public = $4 WHERE id = $5;",
+      "UPDATE notes AS updated SET title = $1, url = $2, text = $3, is_public = $4 WHERE id = $5 RETURNING updated.created_at;",
       [title, url, text, isPublic, id],
       (error, result) => {
         cb(error, result);
